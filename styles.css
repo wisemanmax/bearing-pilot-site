@@ -1285,6 +1285,166 @@ h3 { font-size: var(--type-h3); }
   font-size: var(--type-xs);
 }
 
+/* One-Page Truth rendered as a crisp mini-document preview. */
+.truth-doc { font-size: var(--type-sm); }
+
+.truth-doc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--ink-teal-900);
+}
+
+.truth-doc-brand {
+  font-family: var(--serif);
+  font-size: var(--type-lede);
+  letter-spacing: 0.12em;
+  color: var(--ink-teal-900);
+}
+
+.truth-doc-kind {
+  font-size: var(--type-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass-600);
+}
+
+.truth-doc-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--type-xs);
+  color: var(--sand-900);
+}
+
+/* The blurred client name signals a real, protected document — the findings stay crisp. */
+.truth-redacted {
+  filter: blur(4px);
+  user-select: none;
+  color: var(--ink-teal-700);
+}
+
+.truth-doc .truth-card-label {
+  display: block;
+  margin: var(--space-3) 0 var(--space-5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.truth-doc-block { margin-bottom: var(--space-5); }
+.truth-doc-block:last-child { margin-bottom: 0; }
+
+.truth-doc-h {
+  margin: 0 0 var(--space-2);
+  font-size: var(--type-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass-700);
+}
+
+.truth-findings {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: finding;
+}
+
+.truth-findings li {
+  counter-increment: finding;
+  display: grid;
+  grid-template-columns: 1.6rem 1fr auto;
+  gap: 0 var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-top: 1px solid rgba(10, 36, 36, 0.12);
+}
+
+.truth-findings li:first-child { border-top: 0; }
+
+.truth-findings li::before {
+  content: counter(finding, decimal-leading-zero);
+  font-family: var(--serif);
+  color: var(--brass-500);
+}
+
+.truth-find-text { color: var(--ink-teal-900); }
+
+.truth-doc .mix {
+  align-self: center;
+  padding: 0.1em 0.5em;
+  border: 1px solid var(--brass-400);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.truth-doc-move {
+  padding: var(--space-4);
+  border-left: 3px solid var(--brass-500);
+  background: rgba(176, 141, 87, 0.09);
+}
+
+.truth-doc-move p { margin: 0; color: var(--ink-teal-900); }
+
+.truth-move-owner {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--type-xs);
+  color: var(--sand-900);
+}
+
+.truth-measure {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.truth-measure-label { color: var(--ink-teal-900); }
+
+.truth-measure-trend {
+  font-family: var(--serif);
+  font-size: var(--type-h3);
+  color: var(--brass-700);
+  white-space: nowrap;
+}
+
+/* Diagnostic teaser: high-level operational-finance questions. */
+.diagnostic-lede { max-width: 40rem; }
+
+.diagnostic-list {
+  margin: var(--space-6) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diagnostic-list li {
+  position: relative;
+  padding: var(--space-5) 0 var(--space-5) clamp(3.5rem, 7vw, 5.5rem);
+  border-top: 1px solid rgba(176, 141, 87, 0.6);
+  font-family: var(--serif);
+  font-size: var(--type-h3);
+  line-height: 1.25;
+  color: var(--ink-teal-900);
+}
+
+.diagnostic-list li:last-child {
+  border-bottom: 1px solid rgba(176, 141, 87, 0.6);
+}
+
+.diagnostic-list .section-num {
+  position: absolute;
+  left: 0;
+  top: var(--space-5);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--brass-500);
+}
+
 .first-look > p,
 .first-bearing > p { max-width: 48rem; }
 
