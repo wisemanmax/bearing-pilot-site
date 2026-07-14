@@ -20,6 +20,20 @@ export function draftKey(pilotId) {
   return DRAFT_PREFIX + pilotId;
 }
 
+// The one-time access code carried in the personal assessment link (?t=…).
+// Intake is gated on it server-side, so a link without a valid code cannot
+// submit a receipt or start a delivery clock.
+export function inviteToken(search) {
+  const query = typeof search === "string"
+    ? search
+    : (typeof location !== "undefined" ? location.search : "");
+  try {
+    return new URLSearchParams(query).get("t") || "";
+  } catch {
+    return "";
+  }
+}
+
 // Gate: a real pilot ID plus at least one answered question in every section.
 // "I don't know" is an answer, so a checked don't-know box satisfies a section.
 export function validateSubmission(pilotId, answeredSections) {
@@ -86,15 +100,16 @@ function sectionAnswered(form, section) {
   return false;
 }
 
-async function submitReceipt(pilotId, answers) {
+async function submitReceipt(pilotId, answers, token) {
   const response = await fetch(`${supabaseUrl}/rest/v1/${RECEIPTS_TABLE}`, {
     method: "POST",
     headers: {
       apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },
-    body: JSON.stringify({ pilot_id: pilotId, answers }),
+    body: JSON.stringify({ pilot_id: pilotId, answers, invite_token: token }),
   });
   if (!response.ok) {
     throw new Error(`intake insert failed: ${response.status}`);
@@ -115,6 +130,16 @@ function initAssessment() {
   if (!configReady(supabaseUrl, supabaseKey)) {
     form.hidden = true;
     if (closed) closed.hidden = false;
+    return;
+  }
+
+  // Intake is invite-gated: without the one-time code from the personal link,
+  // the server rejects the receipt, so ask for the right link up front.
+  const token = inviteToken();
+  if (!token) {
+    form.hidden = true;
+    const needsInvite = document.querySelector("#assessment-needs-invite");
+    if (needsInvite) needsInvite.hidden = false;
     return;
   }
 
@@ -197,7 +222,7 @@ function initAssessment() {
     submitButton.disabled = true;
     setStatus("Sending your assessment…", "pending");
     try {
-      await submitReceipt(pilotId, snapshot(form));
+      await submitReceipt(pilotId, snapshot(form), token);
       // Stop any pending autosave before clearing, so it can't recreate the draft.
       submitted = true;
       clearTimeout(saveTimer);

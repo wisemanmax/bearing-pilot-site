@@ -252,30 +252,36 @@ function initPortal() {
     emailSubmit.disabled = true;
     emailSubmit.textContent = "Sending code…";
     setStatus(emailStatus, "");
-    let ok = false;
+    // Whether the email is registered or not, advance to the code step with the
+    // same neutral message — never reveal which addresses are pilot clients
+    // (avoids an email-enumeration oracle). Only a genuine network failure
+    // (a thrown fetch) surfaces a retry.
+    let networkError = false;
     try {
-      ok = await requestOtp(email);
+      await requestOtp(email);
     } catch {
-      ok = false;
+      networkError = true;
     }
     emailSubmit.disabled = false;
     emailSubmit.textContent = "Email me a code";
-    if (ok) {
-      pendingEmail = email;
-      if (codeEmailEcho) codeEmailEcho.textContent = email;
-      emailForm.hidden = true;
-      if (codeForm) codeForm.hidden = false;
-      setStatus(codeStatus, "");
-      codeInput?.focus();
-    } else {
-      // create_user:false rejects unregistered emails; a network error looks the
-      // same to us, so keep the copy honest about both.
+    if (networkError) {
       setStatus(
         emailStatus,
-        "This email isn't registered for the portal yet. Check the address, or ask Bearing to add you.",
+        "Couldn't reach the server just now. Check your connection and try again.",
         "error",
       );
+      return;
     }
+    pendingEmail = email;
+    if (codeEmailEcho) codeEmailEcho.textContent = email;
+    emailForm.hidden = true;
+    if (codeForm) codeForm.hidden = false;
+    setStatus(
+      codeStatus,
+      "If that email is registered for the portal, we've sent it a 6-digit code.",
+      "info",
+    );
+    codeInput?.focus();
   });
 
   codeBack?.addEventListener("click", () => {
@@ -324,7 +330,7 @@ function initPortal() {
     // local copy. Fire-and-forget: local sign-out must never wait on the network.
     const token = activeSession?.access_token;
     if (token) {
-      fetch(`${supabaseUrl}/auth/v1/logout`, {
+      fetch(`${apiBase()}/auth/v1/logout`, {
         method: "POST",
         headers: { apikey: supabaseKey, Authorization: `Bearer ${token}` },
       }).catch(() => {});
@@ -541,14 +547,41 @@ function initPortal() {
     container.append(ul);
   }
 
+  // Refresh the live session if the access token is near expiry, so mid-session
+  // actions keep working past the ~1h token lifetime instead of silently
+  // failing. Returns a fresh session, or null after a clean sign-out on failure.
+  async function ensureFreshSession() {
+    if (!activeSession) return null;
+    if (!sessionIsExpiring(activeSession, Date.now())) return activeSession;
+    const epoch = sessionEpoch;
+    let refreshed = null;
+    try {
+      refreshed = activeSession.refresh_token
+        ? await refreshSession(activeSession.refresh_token)
+        : null;
+    } catch {
+      refreshed = null;
+    }
+    if (epoch !== sessionEpoch) return null;
+    if (refreshed?.access_token) {
+      activeSession = toSession(refreshed, Date.now());
+      saveSession(activeSession);
+      return activeSession;
+    }
+    signOut();
+    return null;
+  }
+
   async function handleDownload(path, button) {
     if (!activeSession) return;
     const epoch = sessionEpoch;
+    const session = await ensureFreshSession();
+    if (epoch !== sessionEpoch || !session) return;
     const original = button.textContent;
     button.disabled = true;
     button.textContent = `${original} — opening…`;
     try {
-      const blob = await downloadDocument(activeSession, path);
+      const blob = await downloadDocument(session, path);
       if (epoch !== sessionEpoch) return;
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
@@ -594,7 +627,12 @@ function initPortal() {
         setStatus(status, "That file is over 10MB. Please upload a smaller file.", "error");
         return;
       }
-      const session = activeSession;
+      const session = await ensureFreshSession();
+      if (epoch !== sessionEpoch) return;
+      if (!session) {
+        setStatus(status, "Your session ended. Sign in again to upload.", "error");
+        return;
+      }
       const pilotId = activePilotId;
       submit.disabled = true;
       submit.textContent = "Uploading…";
