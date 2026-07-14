@@ -6,78 +6,82 @@ import { supabaseUrl, supabaseKey } from "./site-config.mjs";
 // scoring it fires one anonymized, six-number insert (silent, config-gated) and
 // autosaves in-progress answers to a single localStorage key.
 
+// Six dimensions of financial-operations health for small businesses and
+// nonprofits. The `key` values are stable internal identifiers that also name
+// the storage columns (dim_cash … dim_owner); the visitor-facing labels below
+// describe the finance/nonprofit lens they now carry.
 export const DIMENSIONS = [
-  { key: "cash", label: "Cash" },
-  { key: "profit", label: "Profit" },
-  { key: "customers", label: "Customers" },
-  { key: "operations", label: "Operations" },
-  { key: "team", label: "Team" },
-  { key: "owner", label: "Owner" },
+  { key: "cash", label: "Cash & liquidity" },
+  { key: "profit", label: "Margins & sustainability" },
+  { key: "customers", label: "Funding & revenue" },
+  { key: "operations", label: "Financial systems & reporting" },
+  { key: "team", label: "Banking & credit" },
+  { key: "owner", label: "Governance & controls" },
 ];
 
 // 18 questions, three per dimension. Answers are 0–3 with concrete, plain-language
 // anchors (3 = healthiest). Anchors are listed best-first to match the read
 // direction of the example scale ("to the week / to the month / roughly / I don't").
 export const QUESTIONS = [
-  { key: "cash-1", dim: "cash", text: "I know our cash position at any moment:", anchors: [
+  { key: "cash-1", dim: "cash", text: "The cash I can actually decide with — unrestricted, after what's committed — I know:", anchors: [
     { value: 3, label: "to the week" }, { value: 2, label: "to the month" },
     { value: 1, label: "roughly" }, { value: 0, label: "I honestly don't" } ] },
-  { key: "cash-2", dim: "cash", text: "If income stopped tomorrow, how long we could cover payroll and bills is:", anchors: [
+  { key: "cash-2", dim: "cash", text: "If money stopped coming in tomorrow, how long we could cover payroll and obligations is:", anchors: [
     { value: 3, label: "a number I know exactly" }, { value: 2, label: "a rough number" },
     { value: 1, label: "a vague sense" }, { value: 0, label: "something I can't answer" } ] },
-  { key: "cash-3", dim: "cash", text: "Customers pay us:", anchors: [
+  { key: "cash-3", dim: "cash", text: "The money owed to us — invoices, pledged grants, reimbursements — arrives:", anchors: [
     { value: 3, label: "on time, nearly always" }, { value: 2, label: "mostly on time" },
     { value: 1, label: "late often — I chase" }, { value: 0, label: "late enough to squeeze cash" } ] },
 
-  { key: "profit-1", dim: "profit", text: "I know the profit margin on what we sell:", anchors: [
-    { value: 3, label: "per product or job" }, { value: 2, label: "overall" },
+  { key: "profit-1", dim: "profit", text: "The true, fully-loaded cost to deliver our main program or product, I know:", anchors: [
+    { value: 3, label: "per program or job" }, { value: 2, label: "overall" },
     { value: 1, label: "as a ballpark" }, { value: 0, label: "not really" } ] },
-  { key: "profit-2", dim: "profit", text: "Our prices are set:", anchors: [
-    { value: 3, label: "deliberately, and reviewed" }, { value: 2, label: "with some logic" },
-    { value: 1, label: "mostly on gut or history" }, { value: 0, label: "by habit — not revisited" } ] },
-  { key: "profit-3", dim: "profit", text: "Which products or services actually make the money is:", anchors: [
-    { value: 3, label: "clear, with numbers" }, { value: 2, label: "fairly well known" },
-    { value: 1, label: "a hunch" }, { value: 0, label: "a guess" } ] },
+  { key: "profit-2", dim: "profit", text: "Our prices, fees, or grant budgets cover their real costs:", anchors: [
+    { value: 3, label: "deliberately, and reviewed" }, { value: 2, label: "mostly" },
+    { value: 1, label: "on gut or history" }, { value: 0, label: "by habit — not revisited" } ] },
+  { key: "profit-3", dim: "profit", text: "A year out, on the current trajectory, our finances are:", anchors: [
+    { value: 3, label: "sustainable, by design" }, { value: 2, label: "probably fine" },
+    { value: 1, label: "uncertain" }, { value: 0, label: "heading the wrong way" } ] },
 
-  { key: "customers-1", dim: "customers", text: "Our largest customer is:", anchors: [
-    { value: 3, label: "under a tenth of revenue" }, { value: 2, label: "around a fifth" },
-    { value: 1, label: "around a third" }, { value: 0, label: "big enough that losing them would threaten us" } ] },
-  { key: "customers-2", dim: "customers", text: "New business for the next quarter is:", anchors: [
+  { key: "customers-1", dim: "customers", text: "Our largest single funder, grant, or customer is:", anchors: [
+    { value: 3, label: "under a tenth of income" }, { value: 2, label: "around a fifth" },
+    { value: 1, label: "around a third" }, { value: 0, label: "big enough that losing it would threaten us" } ] },
+  { key: "customers-2", dim: "customers", text: "Income for the next two quarters — renewals, pipeline, pledges — is:", anchors: [
     { value: 3, label: "known and healthy" }, { value: 2, label: "roughly visible" },
     { value: 1, label: "thin or uncertain" }, { value: 0, label: "not visible at all" } ] },
-  { key: "customers-3", dim: "customers", text: "Customers who buy once come back:", anchors: [
-    { value: 3, label: "predictably — most do" }, { value: 2, label: "often" },
-    { value: 1, label: "sometimes" }, { value: 0, label: "rarely — it's always new hunting" } ] },
+  { key: "customers-3", dim: "customers", text: "The income that repeats without re-winning it is:", anchors: [
+    { value: 3, label: "most of our base" }, { value: 2, label: "a solid share" },
+    { value: 1, label: "a small share" }, { value: 0, label: "almost none — always new hunting" } ] },
 
-  { key: "operations-1", dim: "operations", text: "When work backs up, where it jams is:", anchors: [
-    { value: 3, label: "known — and we've addressed it" }, { value: 2, label: "known, but it persists" },
-    { value: 1, label: "something I can guess at" }, { value: 0, label: "unclear — it just gets slow" } ] },
-  { key: "operations-2", dim: "operations", text: "Work goes out right the first time:", anchors: [
-    { value: 3, label: "nearly always" }, { value: 2, label: "usually" },
-    { value: 1, label: "often after rework" }, { value: 0, label: "rework is constant" } ] },
-  { key: "operations-3", dim: "operations", text: "We deliver what we promised, when we promised:", anchors: [
+  { key: "operations-1", dim: "operations", text: "Closing the books each month happens:", anchors: [
+    { value: 3, label: "on a schedule, clean" }, { value: 2, label: "most months, a little late" },
+    { value: 1, label: "whenever we get to it" }, { value: 0, label: "rarely — it's a scramble" } ] },
+  { key: "operations-2", dim: "operations", text: "If a funder, lender, or auditor asked for a report this week, we could produce it:", anchors: [
+    { value: 3, label: "same day, confidently" }, { value: 2, label: "with a day or two of work" },
+    { value: 1, label: "only with a real scramble" }, { value: 0, label: "not without outside help" } ] },
+  { key: "operations-3", dim: "operations", text: "Restricted vs. unrestricted funds — or committed vs. free cash — we track:", anchors: [
+    { value: 3, label: "precisely, at any time" }, { value: 2, label: "well enough" },
+    { value: 1, label: "loosely" }, { value: 0, label: "we don't really separate it" } ] },
+
+  { key: "team-1", dim: "team", text: "Our banking and lending relationships are:", anchors: [
+    { value: 3, label: "strong — they know us and our numbers" }, { value: 2, label: "functional" },
+    { value: 1, label: "transactional only" }, { value: 0, label: "strained or unclear" } ] },
+  { key: "team-2", dim: "team", text: "If we needed a loan or line of credit, the terms we'd get are:", anchors: [
+    { value: 3, label: "something I can predict" }, { value: 2, label: "roughly known" },
+    { value: 1, label: "a guess" }, { value: 0, label: "no idea" } ] },
+  { key: "team-3", dim: "team", text: "The covenants, fees, and conditions on our accounts and debt, I understand:", anchors: [
+    { value: 3, label: "fully" }, { value: 2, label: "mostly" },
+    { value: 1, label: "vaguely" }, { value: 0, label: "not at all" } ] },
+
+  { key: "owner-1", dim: "owner", text: "Who can approve, spend, and sign — and up to what limits — is:", anchors: [
+    { value: 3, label: "clear and in writing" }, { value: 2, label: "mostly clear" },
+    { value: 1, label: "fuzzy at the edges" }, { value: 0, label: "improvised" } ] },
+  { key: "owner-2", dim: "owner", text: "The people who record money and the people who move it are:", anchors: [
+    { value: 3, label: "separated, with checks" }, { value: 2, label: "mostly separated" },
+    { value: 1, label: "the same for a lot of it" }, { value: 0, label: "all one person" } ] },
+  { key: "owner-3", dim: "owner", text: "Our board or owners get financials timely and plain enough to act on:", anchors: [
     { value: 3, label: "reliably" }, { value: 2, label: "most of the time" },
-    { value: 1, label: "with frequent slips" }, { value: 0, label: "our promises tend to be optimistic" } ] },
-
-  { key: "team-1", dim: "team", text: "If one key person left, the business would:", anchors: [
-    { value: 3, label: "carry on fine" }, { value: 2, label: "wobble briefly" },
-    { value: 1, label: "struggle for months" }, { value: 0, label: "be in real trouble" } ] },
-  { key: "team-2", dim: "team", text: "People know what they own and are accountable for:", anchors: [
-    { value: 3, label: "clearly, in writing" }, { value: 2, label: "mostly" },
-    { value: 1, label: "fuzzily at the edges" }, { value: 0, label: "it's improvised" } ] },
-  { key: "team-3", dim: "team", text: "Work gets done without me touching it:", anchors: [
-    { value: 3, label: "routinely" }, { value: 2, label: "for most things" },
-    { value: 1, label: "only the simple things" }, { value: 0, label: "almost everything needs me" } ] },
-
-  { key: "owner-1", dim: "owner", text: "My working week is:", anchors: [
-    { value: 3, label: "sustainable, by design" }, { value: 2, label: "long but manageable" },
-    { value: 1, label: "heavier than I'd like" }, { value: 0, label: "more than I can keep up with" } ] },
-  { key: "owner-2", dim: "owner", text: "Decisions route through me:", anchors: [
-    { value: 3, label: "only the big ones" }, { value: 2, label: "the big and some medium" },
-    { value: 1, label: "most of them" }, { value: 0, label: "all of them, constantly" } ] },
-  { key: "owner-3", dim: "owner", text: "The business could run for two weeks without me:", anchors: [
-    { value: 3, label: "easily" }, { value: 2, label: "with some prep" },
-    { value: 1, label: "barely, and roughly" }, { value: 0, label: "not at all" } ] },
+    { value: 1, label: "late or hard to read" }, { value: 0, label: "not really" } ] },
 ];
 
 // Required verbatim on the results view — this is a self-read, not a verdict.
@@ -142,28 +146,28 @@ export function needleAngle(score0to100) {
 // concrete first move.
 const READ_TEMPLATES = {
   cash: {
-    low: "Your answers point to cash you're steering partly blind — the position, the runway, or how fast money comes in isn't visible enough to plan against. That's the gap that turns a normal slow month into a scramble. First move: build a one-page, 13-week cash forecast and update it every Friday, even roughly.",
-    moderate: "You have a working handle on cash, but there's slack in the picture — a number you carry as “roughly” rather than known. Tightening it buys earlier warning. First move: pick the softest of the three — position, runway, or collections — and make it exact this week.",
+    low: "Your answers point to cash you're steering partly blind — how much you can actually decide with, how long it lasts, or how fast it arrives isn't visible enough to plan against. That's the gap that turns a normal slow month into a scramble. First move: build a one-page, 13-week cash forecast — unrestricted only — and update it every Friday, even roughly.",
+    moderate: "You have a working handle on cash, but there's slack in the picture — one of position, runway, or collections is a “roughly” rather than a known number. Tightening it buys earlier warning. First move: make the softest of the three exact this week.",
   },
   profit: {
-    low: "The answers suggest profit is something you feel more than see — margins, pricing, or mix aren't backed by numbers yet. Revenue can climb while the money quietly doesn't. First move: take your top three sellers and work out the true margin on each, then look at what that says about your prices.",
-    moderate: "You know profit is there but not exactly where it's made — one of margin, pricing, or mix is still a hunch. Naming it usually surfaces easy money. First move: check the price on your best-selling item against its real cost and decide if it's set on purpose.",
+    low: "The answers suggest sustainability is something you feel more than see — the true cost to deliver, whether prices or grant budgets cover it, or where the trajectory leads isn't backed by numbers yet. Income can climb while the operation quietly loses ground. First move: fully cost your main program or product, then check what that says about your pricing or budget.",
+    moderate: "You know the operation broadly works, but one of true cost, pricing, or the forward trajectory is still a hunch. First move: fully cost your biggest program or product line and decide, on purpose, whether it pays for itself.",
   },
   customers: {
-    low: "Your answers flag customer risk — either one account carries too much weight, the pipeline is thin, or buyers don't come back. Any one of those makes revenue fragile. First move: write down what share of revenue your largest customer is; if it's near a third or more, start one concrete step toward a second anchor account.",
-    moderate: "The customer base is holding, but there's a soft spot — concentration, pipeline, or repeat business isn't as strong as the rest. First move: look at next quarter's known work, and if it's thin, block two hours a week for outreach before you need it.",
+    low: "Your answers flag funding risk — one funder or customer carries too much weight, the pipeline is thin, or income doesn't repeat. Any one of those makes the whole operation fragile. First move: write down what share of income your largest single source is; if it's near a third or more, start one concrete step toward a second anchor.",
+    moderate: "The funding base is holding, but there's a soft spot — concentration, pipeline, or renewals aren't as strong as the rest. First move: look at the next two quarters of known income, and if it's thin, block time each week for cultivation or outreach before you need it.",
   },
   operations: {
-    low: "The answers point to delivery that runs on effort rather than a system — bottlenecks, rework, or missed promises show up more than they should. That tax stays invisible until you look. First move: track where work actually stalls for one week, then fix the single most common jam.",
-    moderate: "Operations mostly hold, but something slips more than you'd like — a recurring bottleneck, some rework, or the odd late promise. First move: pick the one step that most often forces a redo and tighten it before it spreads.",
+    low: "The answers suggest the books tell you the story late — a slow close, reports that take a scramble, or restricted and free money that blur together. That's the gap that fails a funder review or hides a problem until it's expensive. First move: set a fixed monthly close date and produce one clean report by it, even a rough one.",
+    moderate: "Your reporting mostly works, but one piece — the close, an on-demand report, or the restricted/unrestricted split — isn't as tight as a funder or lender would want. First move: pick that one and make it audit-ready this month.",
   },
   team: {
-    low: "Your answers suggest the business leans hard on specific people — if a key person left, or roles blur, it would hurt. That's key-person risk, and it quietly caps how far you can grow. First move: write down what only one person knows how to do, and start documenting the most critical of those this month.",
-    moderate: "The team works, but there's a dependency or a fuzzy role that would bite under pressure. First move: name the one task that would stall if its owner were out for two weeks, and have them write down how it's done.",
+    low: "Your answers point to banking and credit you're navigating without a map — the relationship is transactional, the terms are a guess, or the conditions on your accounts and debt aren't clear. That's expensive exactly when you need capital most. First move: book a review with your banker and walk out knowing what they'd lend, on what terms, and what they want to see.",
+    moderate: "The banking relationship is functional, but you're not using it as a partner — one of the relationship, the likely terms, or the fine print is fuzzy. First move: pick the fuzziest and get it in writing from your bank this quarter.",
   },
   owner: {
-    low: "The answers point to a business that still runs through you — the hours, the decision load, or not being able to step away all say the owner is the bottleneck. That's the most common ceiling on a good business. First move: list every decision that routed through you this week and pick one type to hand off with a clear rule.",
-    moderate: "You've built something that mostly works, but you're still closer to the center of it than you'd like. First move: choose one recurring decision you make today and give someone else the rule to make it without you.",
+    low: "The answers suggest financial control leans on trust more than structure — approvals, separation of duties, or board-ready financials aren't really in place. That's the setup that invites both honest error and, eventually, an uncomfortable question. First move: write down who can approve and spend, with limits, and separate whoever records money from whoever moves it.",
+    moderate: "Your controls mostly hold, but there's a gap — an approval limit, a separation of duties, or a board report — that would show under scrutiny. First move: close the single gap that would most worry an auditor or a funder.",
   },
 };
 
