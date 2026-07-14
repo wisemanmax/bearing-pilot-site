@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwYTI0MjQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzhhYTc2IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzIgNXY2IE0zMiA1M3Y2IE01IDMyaDYgTTUzIDMyaDYgTTEzIDEzbDQgNCBNNDcgNDdsNCA0IE01MSAxM2wtNCA0IE0xNyA0N2wtNCA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOGFhNzYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyIDEzbDMuNSAxOUwzMiAzOWwtMy41LTdMMzIgMTN6IiBmaWxsPSIjYzhhYTc2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMi4yNSIgZmlsbD0iIzBhMjQyNCIgc3Ryb2tlPSIjYzhhYTc2Ii8+PC9zdmc+'>
+  <meta name="description" content="A free, self-scored read on the health of your business across six dimensions — cash, profit, customers, operations, team, and owner.">
+  <meta name="theme-color" content="#0a2424">
+  <meta property="og:title" content="Business Health Check — BEARING°">
+  <meta property="og:description" content="A free, self-scored directional read across six dimensions of your business.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Business Health Check — BEARING°</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="health-check.css">
+  <link rel="stylesheet" href="motion.css">
+  <script type="module" src="motion.mjs"></script>
+  <script type="module" src="health-check.mjs"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="masthead">
+    <p class="wordmark">BEARING&deg;</p>
+    <p class="descriptor">Business clarity and growth systems</p>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li> <li><a href="services.html">Services</a></li> <li><a href="process.html">Process</a></li> <li><a href="about.html">About</a></li>
+        <li><a href="success-stories.html">Success stories</a></li> <li><a href="resources.html">Resources</a></li> <li><a href="health-check.html">Health check</a></li> <li><a href="contact.html">Contact</a></li> <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro depth-band intro-entrance grain">
+      <h1>Business Health Check</h1>
+      <p>Eighteen plain questions across six dimensions of the business. Answer
+        them honestly and you'll get an instant, directional read on where things
+        stand and where to look first. It's free, it stays in your browser, and it
+        asks for nothing about you &mdash; no name, no email.</p>
+      <p class="pilot-notice">This is the free Health Check, not the paid First
+        Bearing. Your answers never leave this device; only an anonymous set of
+        scores is counted, and only if the backend is switched on.</p>
+    </section>
+
+    <form id="health-form" class="health-form" novalidate>
+      <p class="health-lead">Pick the answer closest to the truth. If two fit,
+        pick the less flattering one &mdash; that's usually the honest one.</p>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-cash" data-dimension="cash">
+        <span class="section-num course-degree" aria-hidden="true">01&deg;</span>
+        <h2 id="dim-cash">Cash</h2>
+        <fieldset class="hc-q"><legend>I know our cash position at any moment:</legend>
+          <label><input type="radio" name="cash-1" value="3"> to the week</label>
+          <label><input type="radio" name="cash-1" value="2"> to the month</label>
+          <label><input type="radio" name="cash-1" value="1"> roughly</label>
+          <label><input type="radio" name="cash-1" value="0"> I honestly don't</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>If income stopped tomorrow, how long we could cover payroll and bills is:</legend>
+          <label><input type="radio" name="cash-2" value="3"> a number I know exactly</label>
+          <label><input type="radio" name="cash-2" value="2"> a rough number</label>
+          <label><input type="radio" name="cash-2" value="1"> a vague sense</label>
+          <label><input type="radio" name="cash-2" value="0"> something I can't answer</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Customers pay us:</legend>
+          <label><input type="radio" name="cash-3" value="3"> on time, nearly always</label>
+          <label><input type="radio" name="cash-3" value="2"> mostly on time</label>
+          <label><input type="radio" name="cash-3" value="1"> late often &mdash; I chase</label>
+          <label><input type="radio" name="cash-3" value="0"> late enough to squeeze cash</label>
+        </fieldset>
+      </section>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-profit" data-dimension="profit">
+        <span class="section-num course-degree" aria-hidden="true">02&deg;</span>
+        <h2 id="dim-profit">Profit</h2>
+        <fieldset class="hc-q"><legend>I know the profit margin on what we sell:</legend>
+          <label><input type="radio" name="profit-1" value="3"> per product or job</label>
+          <label><input type="radio" name="profit-1" value="2"> overall</label>
+          <label><input type="radio" name="profit-1" value="1"> as a ballpark</label>
+          <label><input type="radio" name="profit-1" value="0"> not really</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Our prices are set:</legend>
+          <label><input type="radio" name="profit-2" value="3"> deliberately, and reviewed</label>
+          <label><input type="radio" name="profit-2" value="2"> with some logic</label>
+          <label><input type="radio" name="profit-2" value="1"> mostly on gut or history</label>
+          <label><input type="radio" name="profit-2" value="0"> by habit &mdash; not revisited</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Which products or services actually make the money is:</legend>
+          <label><input type="radio" name="profit-3" value="3"> clear, with numbers</label>
+          <label><input type="radio" name="profit-3" value="2"> fairly well known</label>
+          <label><input type="radio" name="profit-3" value="1"> a hunch</label>
+          <label><input type="radio" name="profit-3" value="0"> a guess</label>
+        </fieldset>
+      </section>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-customers" data-dimension="customers">
+        <span class="section-num course-degree" aria-hidden="true">03&deg;</span>
+        <h2 id="dim-customers">Customers</h2>
+        <fieldset class="hc-q"><legend>Our largest customer is:</legend>
+          <label><input type="radio" name="customers-1" value="3"> under a tenth of revenue</label>
+          <label><input type="radio" name="customers-1" value="2"> around a fifth</label>
+          <label><input type="radio" name="customers-1" value="1"> around a third</label>
+          <label><input type="radio" name="customers-1" value="0"> big enough that losing them would threaten us</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>New business for the next quarter is:</legend>
+          <label><input type="radio" name="customers-2" value="3"> known and healthy</label>
+          <label><input type="radio" name="customers-2" value="2"> roughly visible</label>
+          <label><input type="radio" name="customers-2" value="1"> thin or uncertain</label>
+          <label><input type="radio" name="customers-2" value="0"> not visible at all</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Customers who buy once come back:</legend>
+          <label><input type="radio" name="customers-3" value="3"> predictably &mdash; most do</label>
+          <label><input type="radio" name="customers-3" value="2"> often</label>
+          <label><input type="radio" name="customers-3" value="1"> sometimes</label>
+          <label><input type="radio" name="customers-3" value="0"> rarely &mdash; it's always new hunting</label>
+        </fieldset>
+      </section>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-operations" data-dimension="operations">
+        <span class="section-num course-degree" aria-hidden="true">04&deg;</span>
+        <h2 id="dim-operations">Operations</h2>
+        <fieldset class="hc-q"><legend>When work backs up, where it jams is:</legend>
+          <label><input type="radio" name="operations-1" value="3"> known &mdash; and we've addressed it</label>
+          <label><input type="radio" name="operations-1" value="2"> known, but it persists</label>
+          <label><input type="radio" name="operations-1" value="1"> something I can guess at</label>
+          <label><input type="radio" name="operations-1" value="0"> unclear &mdash; it just gets slow</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Work goes out right the first time:</legend>
+          <label><input type="radio" name="operations-2" value="3"> nearly always</label>
+          <label><input type="radio" name="operations-2" value="2"> usually</label>
+          <label><input type="radio" name="operations-2" value="1"> often after rework</label>
+          <label><input type="radio" name="operations-2" value="0"> rework is constant</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>We deliver what we promised, when we promised:</legend>
+          <label><input type="radio" name="operations-3" value="3"> reliably</label>
+          <label><input type="radio" name="operations-3" value="2"> most of the time</label>
+          <label><input type="radio" name="operations-3" value="1"> with frequent slips</label>
+          <label><input type="radio" name="operations-3" value="0"> our promises tend to be optimistic</label>
+        </fieldset>
+      </section>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-team" data-dimension="team">
+        <span class="section-num course-degree" aria-hidden="true">05&deg;</span>
+        <h2 id="dim-team">Team</h2>
+        <fieldset class="hc-q"><legend>If one key person left, the business would:</legend>
+          <label><input type="radio" name="team-1" value="3"> carry on fine</label>
+          <label><input type="radio" name="team-1" value="2"> wobble briefly</label>
+          <label><input type="radio" name="team-1" value="1"> struggle for months</label>
+          <label><input type="radio" name="team-1" value="0"> be in real trouble</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>People know what they own and are accountable for:</legend>
+          <label><input type="radio" name="team-2" value="3"> clearly, in writing</label>
+          <label><input type="radio" name="team-2" value="2"> mostly</label>
+          <label><input type="radio" name="team-2" value="1"> fuzzily at the edges</label>
+          <label><input type="radio" name="team-2" value="0"> it's improvised</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Work gets done without me touching it:</legend>
+          <label><input type="radio" name="team-3" value="3"> routinely</label>
+          <label><input type="radio" name="team-3" value="2"> for most things</label>
+          <label><input type="radio" name="team-3" value="1"> only the simple things</label>
+          <label><input type="radio" name="team-3" value="0"> almost everything needs me</label>
+        </fieldset>
+      </section>
+
+      <section class="hc-dimension chart-card motion-lift reveal" aria-labelledby="dim-owner" data-dimension="owner">
+        <span class="section-num course-degree" aria-hidden="true">06&deg;</span>
+        <h2 id="dim-owner">Owner</h2>
+        <fieldset class="hc-q"><legend>My working week is:</legend>
+          <label><input type="radio" name="owner-1" value="3"> sustainable, by design</label>
+          <label><input type="radio" name="owner-1" value="2"> long but manageable</label>
+          <label><input type="radio" name="owner-1" value="1"> heavier than I'd like</label>
+          <label><input type="radio" name="owner-1" value="0"> more than I can keep up with</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>Decisions route through me:</legend>
+          <label><input type="radio" name="owner-2" value="3"> only the big ones</label>
+          <label><input type="radio" name="owner-2" value="2"> the big and some medium</label>
+          <label><input type="radio" name="owner-2" value="1"> most of them</label>
+          <label><input type="radio" name="owner-2" value="0"> all of them, constantly</label>
+        </fieldset>
+        <fieldset class="hc-q"><legend>The business could run for two weeks without me:</legend>
+          <label><input type="radio" name="owner-3" value="3"> easily</label>
+          <label><input type="radio" name="owner-3" value="2"> with some prep</label>
+          <label><input type="radio" name="owner-3" value="1"> barely, and roughly</label>
+          <label><input type="radio" name="owner-3" value="0"> not at all</label>
+        </fieldset>
+      </section>
+
+      <div class="health-actions">
+        <button type="submit" id="health-submit" class="cta">See my read</button>
+        <button type="button" id="health-fresh-start" class="cta cta-secondary">Start fresh</button>
+      </div>
+      <p id="health-empty" class="health-empty" role="status" aria-live="polite" hidden>
+        Answer at least one question and we'll draw your read. There are no wrong
+        answers here.</p>
+    </form>
+
+    <section id="health-results" class="health-results reveal" aria-labelledby="results-heading" tabindex="-1" hidden>
+      <h2 id="results-heading">Your directional read</h2>
+
+      <div class="hc-dial-wrap">
+        <svg class="hc-dial" viewBox="0 0 200 130" role="img" aria-labelledby="hc-dial-title">
+          <title id="hc-dial-title">Overall business health compass</title>
+          <path class="hc-dial-arc" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="10" stroke-linecap="round"></path>
+          <g id="hc-needle" transform="rotate(0 100 100)">
+            <line class="hc-needle-line" x1="100" y1="100" x2="100" y2="32" stroke-width="4" stroke-linecap="round"></line>
+          </g>
+          <circle class="hc-dial-pivot" cx="100" cy="100" r="7"></circle>
+        </svg>
+        <p class="hc-overall-figure"><span id="hc-overall">–</span><span class="hc-overall-of">/100 overall</span></p>
+      </div>
+
+      <div id="hc-bars" class="hc-bars" aria-label="Score by dimension"></div>
+
+      <div id="hc-read" class="hc-read"></div>
+
+      <p class="hc-framing">This is a directional read of your own answers — not a benchmark, an audit, or advice.</p>
+
+      <div class="hc-cta chart-card motion-lift">
+        <h3>Want the picture drawn for you?</h3>
+        <p>This read is a mirror. If you'd like a second set of eyes, the free First
+          Look is a five-question directional read, and you can ask to book a full
+          First Bearing when you're ready.</p>
+        <p class="hc-cta-links">
+          <a class="cta cta-secondary" href="index.html#first-look">Take the First Look</a>
+          <a class="cta" href="booking.html">Request a booking</a>
+        </p>
+      </div>
+
+      <p class="hc-print-note">Tip: use your browser's print or “Save as PDF” to keep this read.</p>
+    </section>
+  </main>
+
+  <footer class="footer-band grain">
+    <svg class="footer-compass" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor"></circle>
+      <path d="M16 5v3 M16 24v3 M5 16h3 M24 16h3 M16 8l2 8-2 3-2-3 2-8z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p class="footer-wordmark">Bearing Co. &mdash; pilot site, 2026.</p>
+    <a class="footer-link" href="privacy.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Privacy</a> <a class="footer-link" href="portal.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Client portal</a>
+  </footer>
+
+</body>
+</html>

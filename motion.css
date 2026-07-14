@@ -1,0 +1,403 @@
+:root {
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-duration: 600ms;
+}
+
+/* Scroll reveal: content stays visible unless the motion module has loaded. */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+}
+
+html.js .reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.js .reveal .reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--motion-duration) var(--motion-ease),
+    transform var(--motion-duration) var(--motion-ease);
+  transition-delay: calc(var(--stagger-index, 0) * 90ms);
+}
+
+html.js .reveal.in-view .reveal-stagger > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > :nth-child(1) { --stagger-index: 0; }
+.reveal-stagger > :nth-child(2) { --stagger-index: 1; }
+.reveal-stagger > :nth-child(3) { --stagger-index: 2; }
+.reveal-stagger > :nth-child(4) { --stagger-index: 3; }
+.reveal-stagger > :nth-child(5) { --stagger-index: 4; }
+.reveal-stagger > :nth-child(6) { --stagger-index: 5; }
+
+/* Hero entrance and the finding-your-bearing signature. */
+.bearing-mark {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 0.9rem;
+  color: var(--teal);
+}
+
+.bearing-dial,
+.bearing-ticks,
+.bearing-needle,
+.bearing-center {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.bearing-dial {
+  opacity: 0.45;
+  stroke-width: 1.25;
+}
+
+.bearing-ticks {
+  opacity: 0.68;
+  stroke-width: 1.5;
+}
+
+.bearing-needle {
+  transform: rotate(0deg);
+  transform-box: view-box;
+  transform-origin: 32px 32px;
+  stroke-width: 1.65;
+}
+
+.bearing-center {
+  fill: var(--paper);
+  stroke-width: 1.5;
+}
+
+.hero-word {
+  display: inline-block;
+}
+
+html.js .bearing-needle {
+  animation: bearing-settle 1.6s var(--motion-ease) both;
+}
+
+html.js .hero-entrance .hero-word {
+  animation: hero-rise 640ms var(--motion-ease) both;
+}
+
+html.js .hero-entrance .hero-word:nth-child(1) { animation-delay: 100ms; }
+html.js .hero-entrance .hero-word:nth-child(2) { animation-delay: 180ms; }
+html.js .hero-entrance .hero-word:nth-child(3) { animation-delay: 260ms; }
+html.js .hero-entrance .hero-word:nth-child(4) { animation-delay: 340ms; }
+html.js .hero-entrance .hero-word:nth-child(5) { animation-delay: 420ms; }
+html.js .hero-entrance .hero-word:nth-child(6) { animation-delay: 500ms; }
+html.js .hero-entrance .hero-word:nth-child(7) { animation-delay: 580ms; }
+html.js .hero-entrance .hero-word:nth-child(8) { animation-delay: 660ms; }
+html.js .hero-entrance .hero-word:nth-child(9) { animation-delay: 740ms; }
+
+html.js .hero-entrance .hero-lede,
+html.js .hero-entrance .product-line,
+html.js .hero-entrance .hero-cta {
+  animation: hero-follow var(--motion-duration) var(--motion-ease) both;
+}
+
+html.js .hero-entrance .hero-lede { animation-delay: 830ms; }
+html.js .hero-entrance .product-line { animation-delay: 920ms; }
+html.js .hero-entrance .hero-cta { animation-delay: 1010ms; }
+
+html.js .intro-entrance > h1,
+html.js .intro-entrance > p {
+  animation: hero-follow var(--motion-duration) var(--motion-ease) both;
+}
+
+html.js .intro-entrance > h1 { animation-delay: 100ms; }
+html.js .intro-entrance > p { animation-delay: 180ms; }
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-follow {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bearing-settle {
+  0% {
+    opacity: 0.45;
+    transform: rotate(35deg);
+  }
+  68% {
+    opacity: 1;
+    transform: rotate(-3deg);
+  }
+  84% { transform: rotate(1.25deg); }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+/* CTA glow, interaction lift, and nav underline. */
+.cta-glow {
+  transition: box-shadow 200ms var(--motion-ease);
+}
+
+.cta-glow:hover,
+.cta-glow:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(14, 79, 79, 0.13),
+    0 9px 24px rgba(14, 79, 79, 0.22);
+}
+
+html.js .hero-entrance .hero-cta.cta-glow {
+  animation-name: hero-follow, cta-glow-once;
+  animation-duration: var(--motion-duration), 900ms;
+  animation-timing-function: var(--motion-ease), var(--motion-ease);
+  animation-delay: 1010ms, 1160ms;
+  animation-fill-mode: both, none;
+  animation-iteration-count: 1;
+}
+
+@keyframes cta-glow-once {
+  0%, 100% { box-shadow: 0 0 0 rgba(14, 79, 79, 0); }
+  48% {
+    box-shadow:
+      0 0 0 5px rgba(14, 79, 79, 0.13),
+      0 10px 28px rgba(14, 79, 79, 0.25);
+  }
+}
+
+.motion-lift {
+  box-shadow: 0 4px 16px -14px rgba(10, 58, 58, 0.32);
+  transition:
+    transform 200ms var(--motion-ease),
+    box-shadow 200ms var(--motion-ease);
+}
+
+.motion-lift:hover,
+.motion-lift:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -18px rgba(10, 58, 58, 0.5);
+}
+
+html.js .reveal.in-view .reveal-stagger > .motion-lift:hover,
+html.js .reveal.in-view .reveal-stagger > .motion-lift:focus-within {
+  transform: translateY(-3px);
+}
+
+.site-nav a {
+  position: relative;
+}
+
+.site-nav a:hover {
+  text-decoration: none;
+}
+
+.site-nav a[aria-current="page"] {
+  border-bottom: 0;
+}
+
+.site-nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -2px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 200ms var(--motion-ease);
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after,
+.site-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.site-nav a[aria-current="page"]::after {
+  height: 2px;
+}
+
+/* Cross-page View Transitions: a calm 240ms cross-fade + 8px rise on the
+   incoming page. Silent everywhere the feature is unsupported. */
+@supports (view-transition-name: none) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: view-transition-rise 240ms var(--motion-ease) both;
+  }
+
+  @keyframes view-transition-rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Scroll progress hairline: a 2px brass line beneath the sticky masthead,
+   injected by motion.mjs and filled left-to-right by scroll position. The
+   element is aria-hidden and sits static until scroll timelines are supported. */
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--brass, #b08d57);
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress-fill linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  @keyframes scroll-progress-fill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+/* FAQ open animation: fade + height the answer where interpolate-size lets us
+   animate to auto; the marker rotation already lives in styles.css. Instant
+   (native details toggle) everywhere else. */
+@supports (interpolate-size: allow-keywords) {
+  html.js .faq-item {
+    interpolate-size: allow-keywords;
+  }
+
+  html.js .faq-item::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height 260ms var(--motion-ease),
+      opacity 260ms var(--motion-ease),
+      content-visibility 260ms allow-discrete;
+  }
+
+  html.js .faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+}
+
+/* Compass hover: the needle does one gentle re-settle sweep, reusing the
+   load-time keyframes. Pointer devices only. */
+@media (hover: hover) {
+  html.js .bearing-mark:hover .bearing-needle {
+    animation: bearing-settle 1.1s var(--motion-ease) both;
+  }
+}
+
+/* First Look result entrance: scale + fade when motion.mjs unveils the region. */
+html.js #first-look-result.result-in {
+  animation: first-look-result-in 320ms var(--motion-ease) both;
+}
+
+@keyframes first-look-result-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html.js .reveal,
+  html.js .reveal .reveal-stagger > *,
+  html.js .hero-entrance .hero-word,
+  html.js .hero-entrance .hero-lede,
+  html.js .hero-entrance .product-line,
+  html.js .hero-entrance .hero-cta,
+  html.js .intro-entrance > h1,
+  html.js .intro-entrance > p {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .bearing-needle {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .motion-lift:hover,
+  .motion-lift:focus-within,
+  html.js .reveal.in-view .reveal-stagger > .motion-lift:hover,
+  html.js .reveal.in-view .reveal-stagger > .motion-lift:focus-within {
+    transform: none;
+  }
+
+  /* New motion vocabulary settles to its final state, no sweeps. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  html.js .scroll-progress {
+    display: none;
+  }
+
+  html.js .bearing-mark:hover .bearing-needle {
+    animation: none;
+    transform: rotate(0deg);
+  }
+
+  html.js #first-look-result.result-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

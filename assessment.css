@@ -1,0 +1,108 @@
+/* First Bearing assessment — layered over the Chart Room system in styles.css.
+   Reuses the shared tokens (ink-teal / sand / brass), chart-card framing and
+   .section-num degree numerals; this file only spaces and styles the form. */
+
+.assessment-form {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 52rem;
+  margin: var(--space-7) auto var(--space-8);
+  padding: 0 var(--space-5);
+}
+
+.assessment-form > section {
+  padding: var(--space-6);
+}
+
+.assessment-section h2 {
+  margin-top: 0;
+}
+
+.assessment-form .q {
+  margin: 0 0 var(--space-5);
+}
+
+.assessment-form .q:last-child {
+  margin-bottom: 0;
+}
+
+.assessment-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.assessment-form textarea,
+.assessment-form select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--teal);
+  border-radius: 4px;
+  font: inherit;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.assessment-form textarea {
+  resize: vertical;
+  min-height: 3.5rem;
+}
+
+.assessment-form label.dk {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.assessment-form label.dk input {
+  width: auto;
+  margin: 0;
+}
+
+.draft-note {
+  min-height: 1.2em;
+  margin: var(--space-3) 0 0;
+  font-size: 0.9rem;
+  color: var(--teal);
+}
+
+.assessment-status {
+  min-height: 1.2em;
+  margin: 0 0 var(--space-4);
+  font-size: 0.95rem;
+}
+
+.assessment-status[data-tone="warn"],
+.assessment-status[data-tone="error"] {
+  color: var(--brass-600);
+  font-weight: 600;
+}
+
+.assessment-terms {
+  margin: 0 0 var(--space-5);
+  padding-left: var(--space-5);
+}
+
+.assessment-terms li {
+  margin-bottom: var(--space-3);
+}
+
+#assessment-closed,
+#assessment-success {
+  max-width: 52rem;
+  margin: var(--space-7) auto;
+}
+
+#assessment-success:focus {
+  outline: none;
+}
+
+.assessment-form textarea:focus-visible,
+.assessment-form select:focus-visible {
+  outline: 2px solid var(--brass-600);
+  outline-offset: 2px;
+}

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwYTI0MjQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzhhYTc2IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzIgNXY2IE0zMiA1M3Y2IE01IDMyaDYgTTUzIDMyaDYgTTEzIDEzbDQgNCBNNDcgNDdsNCA0IE01MSAxM2wtNCA0IE0xNyA0N2wtNCA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOGFhNzYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyIDEzbDMuNSAxOUwzMiAzOWwtMy41LTdMMzIgMTN6IiBmaWxsPSIjYzhhYTc2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMi4yNSIgZmlsbD0iIzBhMjQyNCIgc3Ryb2tlPSIjYzhhYTc2Ii8+PC9zdmc+'>
+  <meta name="description" content="The First Bearing written assessment: plain questions about how your business runs. Submitting starts the five-business-day delivery clock.">
+  <meta name="theme-color" content="#0a2424">
+  <meta property="og:title" content="First Bearing assessment — BEARING°">
+  <meta property="og:description" content="The First Bearing written assessment: plain questions about how your business runs. Submitting starts the five-business-day delivery clock.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex,nofollow">
+  <title>First Bearing assessment — BEARING&deg;</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="assessment.css">
+  <script type="module" src="motion.mjs"></script>
+  <script type="module" src="assessment.mjs"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="masthead">
+    <p class="wordmark">BEARING&deg;</p>
+    <p class="descriptor">Business clarity and growth systems</p>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li> <li><a href="services.html">Services</a></li> <li><a href="process.html">Process</a></li> <li><a href="about.html">About</a></li>
+        <li><a href="success-stories.html">Success stories</a></li> <li><a href="resources.html">Resources</a></li> <li><a href="health-check.html">Health check</a></li> <li><a href="contact.html">Contact</a></li> <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro depth-band intro-entrance grain">
+      <h1>Your First Bearing assessment</h1>
+      <p>These are plain questions about how the business actually runs and the
+        numbers behind it. There is nothing to study for and no trick questions.
+        If you don't know an answer, say so &mdash; a gap you can't fill is itself
+        worth knowing about, and every question here has an <em>I don't know</em>
+        option for exactly that.</p>
+      <p class="pilot-notice">We don't ask for your name, email, or company. Your
+        pilot ID is the only identifier attached to these answers. Your draft is
+        saved on this device as you type, so you can stop and come back.</p>
+    </section>
+
+    <!-- Shown by assessment.mjs only when submissions aren't configured yet. -->
+    <section id="assessment-closed" class="chart-card motion-lift reveal" aria-labelledby="closed-heading" hidden>
+      <h2 id="closed-heading">Submissions aren't open yet</h2>
+      <p>The assessment intake isn't live on this pilot site yet. If you've paid
+        for a First Bearing and were sent here to begin, your advisor will confirm
+        the moment it opens &mdash; nothing you'd type now would be recorded.</p>
+    </section>
+
+    <!-- Shown by assessment.mjs after a receipt is stored. -->
+    <section id="assessment-success" class="chart-card motion-lift reveal" aria-labelledby="success-heading" tabindex="-1" hidden>
+      <span class="section-num course-degree" aria-hidden="true">&checkmark;</span>
+      <h2 id="success-heading">Received &mdash; your reading has begun</h2>
+      <p>Your assessment is in. The delivery clock is now running.</p>
+      <ul class="assessment-terms">
+        <li>Your One-Page Truth is due within five business days &mdash; the clock
+          started when this submission was received.</li>
+        <li>If Bearing misses that delivery window without an agreed reschedule,
+          the First Bearing fee is refunded.</li>
+        <li>Every First Bearing includes one free correction for factual errors
+          reported within seven days of delivery.</li>
+      </ul>
+      <p>You can close this page. Your advisor will be in touch to schedule the
+        75-minute debrief.</p>
+    </section>
+
+    <form id="assessment-form" class="assessment-form" novalidate>
+      <section class="chart-card motion-lift reveal" aria-labelledby="pilot-heading">
+        <h2 id="pilot-heading">Which pilot are you?</h2>
+        <p>Select the pilot ID you were given. It's the only identifier we keep
+          with your answers.</p>
+        <p class="q">
+          <label for="pilot-id">Pilot ID</label>
+          <select id="pilot-id" name="pilot-id" required>
+            <option value="">Choose your pilot ID&hellip;</option>
+            <option value="PILOT-01">PILOT-01</option>
+            <option value="PILOT-02">PILOT-02</option>
+            <option value="PILOT-03">PILOT-03</option>
+            <option value="PILOT-04">PILOT-04</option>
+            <option value="PILOT-05">PILOT-05</option>
+          </select>
+        </p>
+        <p id="draft-note" class="draft-note" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="assessment-section chart-card motion-lift reveal" aria-labelledby="sec-money" data-section="money">
+        <span class="section-num course-degree" aria-hidden="true">01&deg;</span>
+        <h2 id="sec-money">Money &amp; margins</h2>
+        <div class="q">
+          <label for="money-1">Roughly what did the business bring in over the last twelve months?</label>
+          <textarea id="money-1" name="money-1" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="money-1-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="money-2">What does it cost to keep the doors open in a normal month?</label>
+          <textarea id="money-2" name="money-2" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="money-2-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="money-3">Of every $100 that comes in, how much is left as profit after everything is paid?</label>
+          <textarea id="money-3" name="money-3" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="money-3-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="money-4">Which product, service, or customer makes you the most money &mdash; and do you know why?</label>
+          <textarea id="money-4" name="money-4" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="money-4-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="money-5">If income stopped tomorrow, how many months of expenses could the business cover?</label>
+          <select id="money-5" name="money-5">
+            <option value="">Choose one&hellip;</option>
+            <option value="under-1">Less than a month</option>
+            <option value="1-3">One to three months</option>
+            <option value="3-6">Three to six months</option>
+            <option value="over-6">More than six months</option>
+            <option value="dk">I don't know</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="assessment-section chart-card motion-lift reveal" aria-labelledby="sec-customers" data-section="customers">
+        <span class="section-num course-degree" aria-hidden="true">02&deg;</span>
+        <h2 id="sec-customers">Customers &amp; offer</h2>
+        <div class="q">
+          <label for="customers-1">In plain words, what does the business sell, and who buys it?</label>
+          <textarea id="customers-1" name="customers-1" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="customers-1-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="customers-2">How do most new customers find you today?</label>
+          <textarea id="customers-2" name="customers-2" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="customers-2-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="customers-3">Why do customers choose you over the alternative?</label>
+          <textarea id="customers-3" name="customers-3" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="customers-3-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="customers-4">What share of revenue comes from your single biggest customer?</label>
+          <select id="customers-4" name="customers-4">
+            <option value="">Choose one&hellip;</option>
+            <option value="under-10">Under 10%</option>
+            <option value="10-25">10&ndash;25%</option>
+            <option value="25-50">25&ndash;50%</option>
+            <option value="over-50">More than half</option>
+            <option value="dk">I don't know</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="assessment-section chart-card motion-lift reveal" aria-labelledby="sec-operations" data-section="operations">
+        <span class="section-num course-degree" aria-hidden="true">03&deg;</span>
+        <h2 id="sec-operations">Operations &amp; time</h2>
+        <div class="q">
+          <label for="operations-1">Walk through what has to happen from a customer saying &ldquo;yes&rdquo; to the work being done.</label>
+          <textarea id="operations-1" name="operations-1" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="operations-1-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="operations-2">What breaks or slows down most often?</label>
+          <textarea id="operations-2" name="operations-2" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="operations-2-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="operations-3">How many hours a week do you personally work in the business?</label>
+          <select id="operations-3" name="operations-3">
+            <option value="">Choose one&hellip;</option>
+            <option value="under-20">Under 20</option>
+            <option value="20-40">20&ndash;40</option>
+            <option value="40-60">40&ndash;60</option>
+            <option value="over-60">More than 60</option>
+            <option value="dk">I don't know</option>
+          </select>
+        </div>
+        <div class="q">
+          <label for="operations-4">What would stop working if you stepped away for a month?</label>
+          <textarea id="operations-4" name="operations-4" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="operations-4-dk"> I don't know / can't answer this yet</label>
+        </div>
+      </section>
+
+      <section class="assessment-section chart-card motion-lift reveal" aria-labelledby="sec-priorities" data-section="priorities">
+        <span class="section-num course-degree" aria-hidden="true">04&deg;</span>
+        <h2 id="sec-priorities">Owner priorities</h2>
+        <div class="q">
+          <label for="priorities-1">Why did you start (or buy) this business?</label>
+          <textarea id="priorities-1" name="priorities-1" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="priorities-1-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="priorities-2">What does a good outcome look like for you in the next twelve months?</label>
+          <textarea id="priorities-2" name="priorities-2" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="priorities-2-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="priorities-3">What worries you most about the business right now?</label>
+          <textarea id="priorities-3" name="priorities-3" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="priorities-3-dk"> I don't know / can't answer this yet</label>
+        </div>
+        <div class="q">
+          <label for="priorities-4">If you could fix only one thing in the next 90 days, what would it be?</label>
+          <textarea id="priorities-4" name="priorities-4" rows="3"></textarea>
+          <label class="dk"><input type="checkbox" name="priorities-4-dk"> I don't know / can't answer this yet</label>
+        </div>
+      </section>
+
+      <section class="assessment-submit chart-card motion-lift reveal" aria-labelledby="submit-heading">
+        <h2 id="submit-heading">Submit your assessment</h2>
+        <p>Submitting starts your five-business-day delivery clock. Answer at
+          least one question in every section &mdash; &ldquo;I don't know&rdquo;
+          counts as an answer.</p>
+        <p id="assessment-status" class="assessment-status" role="status" aria-live="polite"></p>
+        <button id="assessment-submit" class="cta" type="submit">Submit assessment</button>
+      </section>
+    </form>
+  </main>
+
+  <footer class="footer-band grain">
+    <svg class="footer-compass" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor"></circle>
+      <path d="M16 5v3 M16 24v3 M5 16h3 M24 16h3 M16 8l2 8-2 3-2-3 2-8z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p class="footer-wordmark">Bearing Co. &mdash; pilot site, 2026.</p>
+    <a class="footer-link" href="privacy.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Privacy</a> <a class="footer-link" href="portal.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Client portal</a>
+  </footer>
+
+</body>
+</html>

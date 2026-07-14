@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwYTI0MjQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzhhYTc2IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzIgNXY2IE0zMiA1M3Y2IE01IDMyaDYgTTUzIDMyaDYgTTEzIDEzbDQgNCBNNDcgNDdsNCA0IE01MSAxM2wtNCA0IE0xNyA0N2wtNCA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOGFhNzYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyIDEzbDMuNSAxOUwzMiAzOWwtMy41LTdMMzIgMTN6IiBmaWxsPSIjYzhhYTc2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMi4yNSIgZmlsbD0iIzBhMjQyNCIgc3Ryb2tlPSIjYzhhYTc2Ii8+PC9zdmc+'>
+  <meta name="description" content="This Bearing page could not be found. Return home to get back on course.">
+  <meta name="theme-color" content="#0a2424">
+  <meta property="og:title" content="Off course. — BEARING°">
+  <meta property="og:description" content="This Bearing page could not be found. Return home to get back on course.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Off course. — BEARING°</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink-teal: #0a2424;
+      --sand: #f5eee3;
+      --brass: #c8aa76;
+      --serif: "Iowan Old Style", "Palatino Nova", Palatino, "New York", Georgia, serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: clamp(1.5rem, 6vw, 4rem);
+      display: grid;
+      place-items: center;
+      color: var(--sand);
+      background:
+        radial-gradient(circle at 75% 20%, rgba(200, 170, 118, 0.12), transparent 28rem),
+        linear-gradient(145deg, #0e2f2f, var(--ink-teal) 72%);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(100%, 42rem);
+      padding: clamp(2rem, 7vw, 4.5rem);
+      border: 1px solid rgba(200, 170, 118, 0.55);
+      border-radius: 14px;
+      background: rgba(10, 36, 36, 0.72);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.24);
+      text-align: center;
+    }
+
+    svg {
+      width: 5.5rem;
+      height: 5.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--brass);
+    }
+
+    .dial, .ticks { fill: none; stroke: currentColor; }
+    .dial { opacity: 0.6; }
+    .ticks { opacity: 0.82; }
+    .needle { fill: var(--brass); }
+    .center { fill: var(--ink-teal); stroke: var(--brass); }
+
+    .position {
+      margin: 0 0 0.75rem;
+      color: var(--brass);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 0.95;
+    }
+
+    .explanation {
+      max-width: 31rem;
+      margin: 1.5rem auto 2rem;
+      color: #eee5d7;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    a {
+      display: inline-block;
+      padding: 0.75rem 1.2rem;
+      border: 1px solid var(--brass);
+      border-radius: 6px;
+      color: var(--ink-teal);
+      background: var(--brass);
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    a:hover { background: #e5d9c7; }
+    a:focus-visible { outline: 3px solid #f5eee3; outline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <circle class="dial" cx="32" cy="32" r="27" stroke-width="1.5"></circle>
+      <path class="ticks" d="M32 5v6 M32 53v6 M5 32h6 M53 32h6 M13 13l4 4 M47 47l4 4 M51 13l-4 4 M17 47l-4 4" stroke-width="2" stroke-linecap="round"></path>
+      <path class="needle" d="M32 13l3.5 19L32 39l-3.5-7L32 13z"></path>
+      <circle class="center" cx="32" cy="32" r="2.25"></circle>
+    </svg>
+    <p class="position">404&deg; · Position unknown</p>
+    <h1>Off course.</h1>
+    <p class="explanation">The page you were looking for isn't here. The address may be incomplete, or the chart may have changed.</p>
+    <a href="index.html">Home <span aria-hidden="true">&rarr;</span></a>
+  </main>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwYTI0MjQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzhhYTc2IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzIgNXY2IE0zMiA1M3Y2IE01IDMyaDYgTTUzIDMyaDYgTTEzIDEzbDQgNCBNNDcgNDdsNCA0IE01MSAxM2wtNCA0IE0xNyA0N2wtNCA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOGFhNzYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyIDEzbDMuNSAxOUwzMiAzOWwtMy41LTdMMzIgMTN6IiBmaWxsPSIjYzhhYTc2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMi4yNSIgZmlsbD0iIzBhMjQyNCIgc3Ryb2tlPSIjYzhhYTc2Ii8+PC9zdmc+'>
+  <meta name="description" content="Request a First Bearing consultation: propose three times that suit you and get a confirmation within two business days.">
+  <meta name="theme-color" content="#0a2424">
+  <meta property="og:title" content="Request your First Bearing — BEARING°">
+  <meta property="og:description" content="Request a First Bearing consultation: propose three times that suit you and get a confirmation within two business days.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Request your First Bearing — BEARING°</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="booking.css">
+  <script type="module" src="motion.mjs"></script>
+  <script type="module" src="booking.mjs"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="masthead">
+    <p class="wordmark">BEARING&deg;</p>
+    <p class="descriptor">Business clarity and growth systems</p>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li> <li><a href="services.html">Services</a></li> <li><a href="process.html">Process</a></li> <li><a href="about.html">About</a></li>
+        <li><a href="success-stories.html">Success stories</a></li> <li><a href="resources.html">Resources</a></li> <li><a href="health-check.html">Health check</a></li> <li><a href="contact.html">Contact</a></li> <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro depth-band intro-entrance grain">
+      <h1>Request your First Bearing</h1>
+      <p>There's no live calendar yet, so this is a request rather than a
+        confirmed time. Send a few preferred windows and the founder confirms a
+        time with you within two business days.</p>
+    </section>
+
+    <section class="service chart-card motion-lift reveal" aria-labelledby="booking-terms-heading">
+      <h2 id="booking-terms-heading">What you're requesting</h2>
+      <p class="booking-price">First Bearing &mdash; $1,500</p>
+      <ul class="booking-terms">
+        <li>Submit your assessment and receive your One-Page Truth within five
+          business days, followed by a 75-minute debrief.</li>
+        <li>If Bearing misses that delivery window without an agreed
+          reschedule, the First Bearing fee is refunded.</li>
+        <li>Every First Bearing includes one free correction for factual
+          errors reported within seven days of delivery.</li>
+      </ul>
+    </section>
+
+    <section class="contact chart-card motion-lift reveal" id="booking-request" aria-labelledby="booking-request-heading" hidden>
+      <h2 id="booking-request-heading">Send your request</h2>
+      <p>Fill this in and the founder confirms a time with you within two
+        business days. Nothing is charged until a time is agreed.</p>
+
+      <form id="booking-form">
+        <fieldset id="booking-fields">
+          <legend>Your details</legend>
+          <p class="contact-field">
+            <label for="booking-name">Name</label>
+            <input id="booking-name" name="name" type="text" autocomplete="name" required>
+          </p>
+          <p class="contact-field">
+            <label for="booking-email">Email</label>
+            <input id="booking-email" name="email" type="email" autocomplete="email" required>
+          </p>
+          <p class="contact-field">
+            <label for="booking-business">Business name <span aria-hidden="true">(optional)</span></label>
+            <input id="booking-business" name="business_name" type="text" autocomplete="organization">
+          </p>
+          <p class="contact-field">
+            <label for="booking-note">What prompted this? <span aria-hidden="true">(optional)</span></label>
+            <textarea id="booking-note" name="note" rows="3"></textarea>
+          </p>
+          <p class="contact-field">
+            <label for="booking-timezone">Your timezone</label>
+            <select id="booking-timezone" name="timezone" required>
+              <option value="">Select a timezone</option>
+              <option value="Eastern">Eastern (ET)</option>
+              <option value="Central">Central (CT)</option>
+              <option value="Mountain">Mountain (MT)</option>
+              <option value="Pacific">Pacific (PT)</option>
+              <option value="Alaska">Alaska (AKT)</option>
+              <option value="Hawaii">Hawaii (HT)</option>
+              <option value="other">Other</option>
+            </select>
+          </p>
+        </fieldset>
+
+        <fieldset class="booking-windows">
+          <legend>Three preferred time windows</legend>
+          <p class="contact-caution">Pick a day and a rough time of day for each.
+            Fill in at least one &mdash; more gives us room to find a fit.</p>
+
+          <div class="booking-window">
+            <span class="contact-field">
+              <label for="booking-day1">Window one &mdash; day</label>
+              <select id="booking-day1" name="day1">
+                <option value="">No preference</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+              </select>
+            </span>
+            <span class="contact-field">
+              <label for="booking-time1">Window one &mdash; time of day</label>
+              <select id="booking-time1" name="time1">
+                <option value="morning">Morning</option>
+                <option value="midday">Midday</option>
+                <option value="afternoon">Afternoon</option>
+              </select>
+            </span>
+          </div>
+
+          <div class="booking-window">
+            <span class="contact-field">
+              <label for="booking-day2">Window two &mdash; day</label>
+              <select id="booking-day2" name="day2">
+                <option value="">No preference</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+              </select>
+            </span>
+            <span class="contact-field">
+              <label for="booking-time2">Window two &mdash; time of day</label>
+              <select id="booking-time2" name="time2">
+                <option value="morning">Morning</option>
+                <option value="midday">Midday</option>
+                <option value="afternoon">Afternoon</option>
+              </select>
+            </span>
+          </div>
+
+          <div class="booking-window">
+            <span class="contact-field">
+              <label for="booking-day3">Window three &mdash; day</label>
+              <select id="booking-day3" name="day3">
+                <option value="">No preference</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+              </select>
+            </span>
+            <span class="contact-field">
+              <label for="booking-time3">Window three &mdash; time of day</label>
+              <select id="booking-time3" name="time3">
+                <option value="morning">Morning</option>
+                <option value="midday">Midday</option>
+                <option value="afternoon">Afternoon</option>
+              </select>
+            </span>
+          </div>
+        </fieldset>
+
+        <p class="booking-honeypot" aria-hidden="true">
+          <label for="booking-company">Company (leave this blank)</label>
+          <input id="booking-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </p>
+
+        <button id="booking-submit" class="cta" type="submit">Request my First Bearing</button>
+        <p id="booking-status" role="status" aria-live="polite" hidden></p>
+      </form>
+
+      <p id="booking-success" role="status" hidden>Request received &mdash; expect
+        a confirmation within two business days.</p>
+    </section>
+
+    <section class="contact chart-card motion-lift reveal" id="booking-closed" aria-labelledby="booking-closed-heading" hidden>
+      <h2 id="booking-closed-heading">Booking requests aren't open yet</h2>
+      <p>Requests aren't open yet. The moment they are, this page starts taking
+        them &mdash; check back, or reach out from the <a href="contact.html">contact
+        page</a> when it opens.</p>
+    </section>
+
+    <section class="contact chart-card motion-lift reveal" id="booking-external" aria-labelledby="booking-external-heading" hidden>
+      <h2 id="booking-external-heading">Book directly</h2>
+      <p>The live calendar is open. Pick a time that works for you.</p>
+      <a id="booking-external-link" class="cta" role="link">Book directly</a>
+    </section>
+  </main>
+
+  <footer class="footer-band grain">
+    <svg class="footer-compass" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor"></circle>
+      <path d="M16 5v3 M16 24v3 M5 16h3 M24 16h3 M16 8l2 8-2 3-2-3 2-8z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p class="footer-wordmark">Bearing Co. &mdash; pilot site, 2026.</p>
+    <a class="footer-link" href="privacy.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Privacy</a> <a class="footer-link" href="portal.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Client portal</a>
+  </footer>
+
+</body>
+</html>
