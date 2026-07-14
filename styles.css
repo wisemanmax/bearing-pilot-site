@@ -848,7 +848,8 @@ h3 { font-size: var(--type-h3); }
 
 .course-plot {
   position: relative;
-  max-width: 64rem;
+  /* Fill the section column so the timeline lines up with its heading. */
+  max-width: none;
   padding-left: var(--course-gutter);
 }
 
@@ -1178,7 +1179,9 @@ h3 { font-size: var(--type-h3); }
 }
 
 .faq-list {
-  max-width: 62rem;
+  /* Fill the section column so the accordions line up with the heading;
+     answer text keeps its own readable cap (.faq-answer). */
+  max-width: none;
 }
 
 .faq-item {
@@ -1285,7 +1288,9 @@ h3 { font-size: var(--type-h3); }
 .first-look > p,
 .first-bearing > p { max-width: 48rem; }
 
-#first-look-form { max-width: 55rem; }
+/* Fill the section column so the form's edges line up with its heading,
+   rather than sitting narrow and left-shifted on wide viewports. */
+#first-look-form { max-width: none; }
 
 fieldset {
   margin-bottom: var(--space-5);
