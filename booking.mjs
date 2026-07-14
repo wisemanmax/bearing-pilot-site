@@ -104,12 +104,25 @@ if (typeof document !== "undefined") {
           .map((i) => ({ day: (data.get(`day${i}`) || "").trim(), time: (data.get(`time${i}`) || "").trim() }))
           .filter((window) => window.day !== "");
 
+        // Fold the "other" timezone detail into the timezone value and the
+        // earliest-date into the note, so the request is schedulable without
+        // changing the stored shape.
+        let timezone = (data.get("timezone") || "").trim();
+        const timezoneOther = (data.get("timezone-other") || "").trim();
+        if (timezone === "other" && timezoneOther) timezone = `Other: ${timezoneOther}`;
+
+        const noteParts = [];
+        const rawNote = (data.get("note") || "").trim();
+        if (rawNote) noteParts.push(rawNote);
+        const earliest = (data.get("earliest-date") || "").trim();
+        if (earliest) noteParts.push(`Earliest date: ${earliest}`);
+
         const payload = {
           name: (data.get("name") || "").trim(),
           email: (data.get("email") || "").trim(),
           business_name: (data.get("business_name") || "").trim() || null,
-          note: (data.get("note") || "").trim() || null,
-          timezone: (data.get("timezone") || "").trim(),
+          note: noteParts.join(" · ") || null,
+          timezone,
           windows,
           honeypot_tripped: (data.get("company") || "").trim() !== "",
         };

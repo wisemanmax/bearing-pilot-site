@@ -64,7 +64,7 @@
           (PILOT-01 through PILOT-05) and your answers about the business.
           There are no name or email fields on that form by design.</li>
         <li><strong>The First Look.</strong> An anonymized numeric score from
-          0 to 10 and its derived band &mdash; adrift, drifting, or steady.
+          0 to 10 and its derived band &mdash; adrift, oriented, steady, or advancing.
           Nothing else: no answers, no name, no email, nothing that identifies
           you.</li>
         <li><strong>The Business Health Check.</strong> Anonymized 0&ndash;100
@@ -80,11 +80,20 @@
           that only you and Bearing can access. Nothing in the portal is
           readable by other clients or by the public site.</li>
       </ul>
-      <p>There is no analytics, no advertising, and no cookies. The one thing
-        stored on your device is a <strong>localStorage</strong> draft that
-        autosaves what you type so a refresh doesn't lose your work. That draft
-        stays in your own browser and never leaves the device until you press
-        submit.</p>
+      <p>There is no analytics, no advertising, and no cookies. A few things are
+        stored in your own browser's <strong>localStorage</strong>, and none of
+        them leave your device except as described above:</p>
+      <ul>
+        <li><strong>Form drafts</strong> &mdash; the Health Check and the First
+          Bearing assessment autosave what you type so a refresh doesn't lose
+          your work; the draft clears once you submit.</li>
+        <li><strong>Your portal sign-in</strong> &mdash; if you log into the
+          client portal, your session (including the token that keeps you signed
+          in and your email) is kept in localStorage until you sign out, so you
+          don't have to re-enter a code on every visit.</li>
+      </ul>
+      <p>All of it stays in your browser on your device; signing out of the
+        portal or clearing your browser storage removes it.</p>
     </section>
 
     <section class="chart-card motion-lift reveal" aria-labelledby="store-heading">

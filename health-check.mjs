@@ -329,7 +329,8 @@ function initHealthCheck() {
     renderResults(result, results);
     results.hidden = false;
     results.focus();
-    results.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    results.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
     // Anonymized, silent, config-gated. Never awaited — the read is already shown.
     void recordHealthScore(result);
   });

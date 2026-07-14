@@ -53,7 +53,7 @@ export function validateSubmission(pilotId, answeredSections) {
 // Local storage can throw (private mode, disabled storage). Never let a failed
 // draft save cost the visitor their place or block submission.
 function safeSet(key, value) {
-  try { localStorage.setItem(key, value); } catch { /* draft is best-effort */ }
+  try { localStorage.setItem(key, value); return true; } catch { return false; }
 }
 function safeGet(key) {
   try { return localStorage.getItem(key); } catch { return null; }
@@ -234,15 +234,37 @@ function initAssessment() {
       }
     } catch {
       submitButton.disabled = false;
+      const saved = safeSet(draftKey(pilotId), JSON.stringify(snapshot(form)));
       setStatus(
-        "We couldn't send that just now. Your answers are saved on this device — check your connection and try again in a moment.",
+        saved
+          ? "We couldn't send that just now. Your answers are saved on this device — check your connection and try again in a moment."
+          : "We couldn't send that, and this browser isn't keeping a local draft — copy your answers somewhere safe before closing this page, then try again.",
         "error",
       );
     }
   });
 
+  // When a question's "I don't know" box is checked, clear and disable its
+  // paired textarea so a leftover answer can't contradict the checkbox.
+  function syncDontKnow() {
+    for (const box of form.querySelectorAll('input[type="checkbox"][name$="-dk"]')) {
+      const paired = form.querySelector(`[name="${box.name.slice(0, -3)}"]`);
+      if (!paired) continue;
+      if (box.checked) {
+        paired.value = "";
+        paired.disabled = true;
+      } else {
+        paired.disabled = false;
+      }
+    }
+  }
+  form.addEventListener("change", (event) => {
+    if (event.target?.name?.endsWith("-dk")) syncDontKnow();
+  });
+
   // A returning visitor may land with a pilot already selected (browser restore).
   loadDraft();
+  syncDontKnow();
 }
 
 if (typeof document !== "undefined") {

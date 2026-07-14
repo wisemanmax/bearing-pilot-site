@@ -170,9 +170,13 @@ async function listFolder(session, prefix, request = globalThis.fetch) {
   return response.json();
 }
 
+// Encode each path segment so an object name with #, ?, %, spaces, etc. can't
+// break or reinterpret the storage URL.
+const encodePath = (p) => String(p).split("/").map(encodeURIComponent).join("/");
+
 async function downloadDocument(session, path, request = globalThis.fetch) {
   const response = await request(
-    `${apiBase()}/storage/v1/object/authenticated/${BUCKET}/${path}`,
+    `${apiBase()}/storage/v1/object/authenticated/${BUCKET}/${encodePath(path)}`,
     { headers: authHeaders(session) },
   );
   if (!response.ok) throw new Error("download");
@@ -183,7 +187,7 @@ async function downloadDocument(session, path, request = globalThis.fetch) {
 // name so a client can never overwrite a founder deliverable at the root.
 async function uploadDocument(session, pilotId, file, nowMs, request = globalThis.fetch) {
   const path = `${pilotId}/uploads/${nowMs}-${sanitizeFilename(file.name)}`;
-  const response = await request(`${apiBase()}/storage/v1/object/${BUCKET}/${path}`, {
+  const response = await request(`${apiBase()}/storage/v1/object/${BUCKET}/${encodePath(path)}`, {
     method: "POST",
     headers: { ...authHeaders(session), "Content-Type": file.type || "application/octet-stream" },
     body: file,

@@ -53,6 +53,15 @@
       </ul>
     </section>
 
+    <noscript>
+      <section class="chart-card motion-lift">
+        <h2>Requesting a time needs JavaScript</h2>
+        <p>This request form runs in your browser and needs JavaScript turned on.
+          If you'd rather not, reach us from the
+          <a href="contact.html">contact page</a> and we'll set up a time.</p>
+      </section>
+    </noscript>
+
     <section class="contact chart-card motion-lift reveal" id="booking-request" aria-labelledby="booking-request-heading" hidden>
       <h2 id="booking-request-heading">Send your request</h2>
       <p>Fill this in and the founder confirms a time with you within two
@@ -90,12 +99,20 @@
               <option value="other">Other</option>
             </select>
           </p>
+          <p class="contact-field">
+            <label for="booking-timezone-other">If other, which timezone? <span aria-hidden="true">(optional)</span></label>
+            <input id="booking-timezone-other" name="timezone-other" type="text" maxlength="80" autocomplete="off">
+          </p>
         </fieldset>
 
         <fieldset class="booking-windows">
           <legend>Three preferred time windows</legend>
           <p class="contact-caution">Pick a day and a rough time of day for each.
             Fill in at least one &mdash; more gives us room to find a fit.</p>
+          <p class="contact-field">
+            <label for="booking-earliest">Earliest date you could meet <span aria-hidden="true">(optional)</span></label>
+            <input id="booking-earliest" name="earliest-date" type="date" autocomplete="off">
+          </p>
 
           <div class="booking-window">
             <span class="contact-field">

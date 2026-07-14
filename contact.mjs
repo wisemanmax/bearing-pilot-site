@@ -43,7 +43,7 @@ function validateContactFields({ name, email, message }) {
   const n = typeof name === "string" ? name.trim() : "";
   if (n.length < 1 || n.length > 200) return "Please enter your name.";
   if (!looksLikeEmail(email)) return "Please enter a valid email address.";
-  const msg = typeof message === "string" ? message : "";
+  const msg = typeof message === "string" ? message.trim() : "";
   if (msg.length < 1 || msg.length > 4000) return "Please enter a message (up to 4000 characters).";
   return null;
 }
@@ -145,7 +145,7 @@ if (typeof document !== "undefined") {
             {
               name: name.trim(),
               email: email.trim(),
-              message,
+              message: message.trim(),
               honeypot_tripped,
             },
             sbUrl,

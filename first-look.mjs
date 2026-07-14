@@ -41,9 +41,12 @@ export function scoreFirstLook(values) {
   return FIRST_LOOK_STATES.find((band) => total >= band.min);
 }
 
+// The stored band mirrors the four states shown to the visitor
+// (see FIRST_LOOK_STATES), so the analytics band matches what they saw.
 export function firstLookBand(score) {
+  if (score >= 9) return "advancing";
   if (score >= 7) return "steady";
-  if (score >= 4) return "drifting";
+  if (score >= 4) return "oriented";
   return "adrift";
 }
 
