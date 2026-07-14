@@ -1,5 +1,5 @@
 import { contactEndpoint, supabaseUrl, supabaseKey } from "./site-config.mjs";
-import { safeBookingUrl } from "./first-look.mjs";
+import { safeBookingUrl } from "./booking-url.mjs";
 
 // Activates the contact form when either a non-blank https:// contactEndpoint
 // is provided (legacy form action) or both supabaseUrl and supabaseKey are

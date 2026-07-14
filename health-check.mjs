@@ -148,26 +148,32 @@ const READ_TEMPLATES = {
   cash: {
     low: "Your answers point to cash you're steering partly blind — how much you can actually decide with, how long it lasts, or how fast it arrives isn't visible enough to plan against. That's the gap that turns a normal slow month into a scramble. First move: build a one-page, 13-week cash forecast — unrestricted only — and update it every Friday, even roughly.",
     moderate: "You have a working handle on cash, but there's slack in the picture — one of position, runway, or collections is a “roughly” rather than a known number. Tightening it buys earlier warning. First move: make the softest of the three exact this week.",
+    high: "Your cash picture is strong: position, runway, and collections are visible enough to steer by. Keep that advantage by refreshing the numbers on a fixed weekly rhythm.",
   },
   profit: {
     low: "The answers suggest sustainability is something you feel more than see — the true cost to deliver, whether prices or grant budgets cover it, or where the trajectory leads isn't backed by numbers yet. Income can climb while the operation quietly loses ground. First move: fully cost your main program or product, then check what that says about your pricing or budget.",
     moderate: "You know the operation broadly works, but one of true cost, pricing, or the forward trajectory is still a hunch. First move: fully cost your biggest program or product line and decide, on purpose, whether it pays for itself.",
+    high: "Your sustainability picture is strong: costs, pricing or budgets, and the forward trajectory are grounded in numbers. Keep testing those assumptions as the mix changes.",
   },
   customers: {
     low: "Your answers flag funding risk — one funder or customer carries too much weight, the pipeline is thin, or income doesn't repeat. Any one of those makes the whole operation fragile. First move: write down what share of income your largest single source is; if it's near a third or more, start one concrete step toward a second anchor.",
     moderate: "The funding base is holding, but there's a soft spot — concentration, pipeline, or renewals aren't as strong as the rest. First move: look at the next two quarters of known income, and if it's thin, block time each week for cultivation or outreach before you need it.",
+    high: "Your funding and revenue base is strong: concentration is controlled, the next two quarters are visible, and repeat income provides ballast. Keep watching the mix before it shifts.",
   },
   operations: {
     low: "The answers suggest the books tell you the story late — a slow close, reports that take a scramble, or restricted and free money that blur together. That's the gap that fails a funder review or hides a problem until it's expensive. First move: set a fixed monthly close date and produce one clean report by it, even a rough one.",
     moderate: "Your reporting mostly works, but one piece — the close, an on-demand report, or the restricted/unrestricted split — isn't as tight as a funder or lender would want. First move: pick that one and make it audit-ready this month.",
+    high: "Your financial systems and reporting are strong: the books close cleanly, reports are ready, and committed money stays distinct from free cash. Protect that cadence as volume grows.",
   },
   team: {
     low: "Your answers point to banking and credit you're navigating without a map — the relationship is transactional, the terms are a guess, or the conditions on your accounts and debt aren't clear. That's expensive exactly when you need capital most. First move: book a review with your banker and walk out knowing what they'd lend, on what terms, and what they want to see.",
     moderate: "The banking relationship is functional, but you're not using it as a partner — one of the relationship, the likely terms, or the fine print is fuzzy. First move: pick the fuzziest and get it in writing from your bank this quarter.",
+    high: "Your banking and credit footing is strong: the relationship, likely terms, and account conditions are clear before you need them. Keep the relationship warm with regular updates.",
   },
   owner: {
     low: "The answers suggest financial control leans on trust more than structure — approvals, separation of duties, or board-ready financials aren't really in place. That's the setup that invites both honest error and, eventually, an uncomfortable question. First move: write down who can approve and spend, with limits, and separate whoever records money from whoever moves it.",
     moderate: "Your controls mostly hold, but there's a gap — an approval limit, a separation of duties, or a board report — that would show under scrutiny. First move: close the single gap that would most worry an auditor or a funder.",
+    high: "Your governance and controls are strong: authority is clear, duties are separated, and decision-makers get usable financials. Keep those safeguards written and current.",
   },
 };
 
@@ -177,7 +183,7 @@ export function writtenRead(result) {
     .sort((a, b) => a.score0to100 - b.score0to100)
     .slice(0, 2);
   return weakestTwo.map((d) => {
-    const band = d.score0to100 < 50 ? "low" : "moderate";
+    const band = d.score0to100 >= 75 ? "high" : d.score0to100 < 50 ? "low" : "moderate";
     return { key: d.key, label: d.label, text: READ_TEMPLATES[d.key][band] };
   });
 }
@@ -305,8 +311,12 @@ function initHealthCheck() {
     let saved;
     try { saved = JSON.parse(raw); } catch { return; }
     for (const q of QUESTIONS) {
-      const v = saved[q.key];
-      if (v === undefined) continue;
+      const stored = saved[q.key];
+      const v = typeof stored === "number" ||
+          (typeof stored === "string" && stored.trim() !== "")
+        ? Number(stored)
+        : NaN;
+      if (!Number.isInteger(v) || v < 0 || v > 3) continue;
       const input = form.querySelector(`input[name="${q.key}"][value="${v}"]`);
       if (input) input.checked = true;
     }

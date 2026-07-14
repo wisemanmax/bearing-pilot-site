@@ -1,20 +1,35 @@
 document.documentElement.classList.add("js");
 
 const reveals = document.querySelectorAll(".reveal");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+let reduceMotion = reducedMotionQuery.matches;
 const masthead = document.querySelector(".masthead");
 
-let scrollQueued = false;
+let scrollFrame = 0;
 function compactMasthead() {
   masthead.classList.toggle("scrolled", window.scrollY > 48);
-  scrollQueued = false;
+  scrollFrame = 0;
 }
+
+function queueMastheadCompaction() {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(compactMasthead);
+}
+
+function setMastheadCompaction(enabled) {
+  if (!masthead) return;
+  window.removeEventListener("scroll", queueMastheadCompaction);
+  if (scrollFrame) cancelAnimationFrame(scrollFrame);
+  scrollFrame = 0;
+  if (enabled) {
+    compactMasthead();
+    window.addEventListener("scroll", queueMastheadCompaction, { passive: true });
+  } else {
+    masthead.classList.remove("scrolled");
+  }
+}
+
 if (masthead && !reduceMotion) {
-  compactMasthead();
-  window.addEventListener("scroll", () => {
-    if (!scrollQueued) requestAnimationFrame(compactMasthead);
-    scrollQueued = true;
-  }, { passive: true });
+  setMastheadCompaction(true);
 }
 
 function showAll() {
@@ -61,48 +76,81 @@ if (masthead && !reduceMotion) {
 // --- Magnetic primary CTAs -------------------------------------------------
 // On pointer devices, a .cta eases up to 3px toward the cursor, then settles
 // back on leave. Skipped entirely under reduced motion or coarse/no pointers.
-if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
-  const MAX_PULL = 3;
-  for (const cta of document.querySelectorAll(".cta")) {
-    let current = { x: 0, y: 0 };
-    let target = { x: 0, y: 0 };
-    let raf = 0;
+const MAX_PULL = 3;
+const magneticCtas = [...document.querySelectorAll(".cta")].map((cta) => {
+  const state = {
+    cta,
+    current: { x: 0, y: 0 },
+    target: { x: 0, y: 0 },
+    raf: 0,
+    enabled: false,
+  };
 
-    const step = () => {
-      current.x += (target.x - current.x) * 0.18;
-      current.y += (target.y - current.y) * 0.18;
-      const settled =
-        Math.abs(target.x - current.x) < 0.05 && Math.abs(target.y - current.y) < 0.05;
-      if (settled) {
-        current = { x: target.x, y: target.y };
-        raf = 0;
-        if (target.x === 0 && target.y === 0) {
-          cta.style.transform = "";
-          return;
-        }
+  state.step = () => {
+    state.current.x += (state.target.x - state.current.x) * 0.18;
+    state.current.y += (state.target.y - state.current.y) * 0.18;
+    const settled =
+      Math.abs(state.target.x - state.current.x) < 0.05 &&
+      Math.abs(state.target.y - state.current.y) < 0.05;
+    if (settled) {
+      state.current = { x: state.target.x, y: state.target.y };
+      state.raf = 0;
+      if (state.target.x === 0 && state.target.y === 0) {
+        cta.style.transform = "";
+        return;
       }
-      cta.style.transform = `translate(${current.x.toFixed(2)}px, ${current.y.toFixed(2)}px)`;
-      if (!settled) raf = requestAnimationFrame(step);
-    };
+    }
+    cta.style.transform = `translate(${state.current.x.toFixed(2)}px, ${state.current.y.toFixed(2)}px)`;
+    if (!settled) state.raf = requestAnimationFrame(state.step);
+  };
 
-    const pull = (event) => {
-      const rect = cta.getBoundingClientRect();
-      const dx = (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const dy = (event.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-      target = {
-        x: Math.max(-1, Math.min(1, dx)) * MAX_PULL,
-        y: Math.max(-1, Math.min(1, dy)) * MAX_PULL,
-      };
-      if (!raf) raf = requestAnimationFrame(step);
+  state.pull = (event) => {
+    const rect = cta.getBoundingClientRect();
+    const dx = (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const dy = (event.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    state.target = {
+      x: Math.max(-1, Math.min(1, dx)) * MAX_PULL,
+      y: Math.max(-1, Math.min(1, dy)) * MAX_PULL,
     };
+    if (!state.raf) state.raf = requestAnimationFrame(state.step);
+  };
 
-    cta.addEventListener("pointermove", pull);
-    cta.addEventListener("pointerleave", () => {
-      target = { x: 0, y: 0 };
-      if (!raf) raf = requestAnimationFrame(step);
-    });
+  state.leave = () => {
+    state.target = { x: 0, y: 0 };
+    if (!state.raf) state.raf = requestAnimationFrame(state.step);
+  };
+  return state;
+});
+
+function setMagneticCtas(enabled) {
+  for (const state of magneticCtas) {
+    if (enabled && !state.enabled) {
+      state.cta.addEventListener("pointermove", state.pull);
+      state.cta.addEventListener("pointerleave", state.leave);
+      state.enabled = true;
+    } else if (!enabled && state.enabled) {
+      state.cta.removeEventListener("pointermove", state.pull);
+      state.cta.removeEventListener("pointerleave", state.leave);
+      if (state.raf) cancelAnimationFrame(state.raf);
+      state.raf = 0;
+      state.current = { x: 0, y: 0 };
+      state.target = { x: 0, y: 0 };
+      state.cta.style.transform = "";
+      state.enabled = false;
+    }
   }
 }
+
+if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
+  setMagneticCtas(true);
+}
+
+reducedMotionQuery.addEventListener("change", (event) => {
+  reduceMotion = event.matches;
+  setMastheadCompaction(!reduceMotion);
+  setMagneticCtas(!reduceMotion && window.matchMedia("(hover: hover)").matches);
+  if (reduceMotion) showAll();
+});
 
 // --- First Look result entrance -------------------------------------------
 // first-look.mjs owns the form; here we only watch its result region and add a

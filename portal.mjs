@@ -403,6 +403,13 @@ function initPortal() {
         { headers: authHeaders(session) },
       );
       if (epoch !== sessionEpoch) return;
+      // A revoked or expired token authenticates as no one — PostgREST answers
+      // 401/403. Don't fall through to an empty-looking dashboard; sign out to
+      // the login view so the client can re-authenticate.
+      if (response.status === 401 || response.status === 403) {
+        signOut();
+        return;
+      }
       if (response.ok) {
         const rows = await response.json();
         if (epoch !== sessionEpoch) return;

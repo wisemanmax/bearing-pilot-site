@@ -1,17 +1,7 @@
 import { bookingUrl, supabaseKey, supabaseUrl } from "./site-config.mjs";
+import { safeBookingUrl } from "./booking-url.mjs";
 
-// Booking handoff. Only a non-blank https:// URL activates the CTA; anything
-// else (blank config, http, javascript:, malformed) leaves it disabled.
-export function safeBookingUrl(value) {
-  if (typeof value !== "string" || value.trim() === "") return null;
-  let url;
-  try {
-    url = new URL(value.trim());
-  } catch {
-    return null;
-  }
-  return url.protocol === "https:" ? url.href : null;
-}
+export { safeBookingUrl };
 
 // Applies the booking state to the CTA anchor. Returns true when active.
 export function applyBookingState(link, configuredUrl) {

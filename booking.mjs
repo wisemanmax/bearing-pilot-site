@@ -1,5 +1,5 @@
 import { bookingUrl, supabaseKey, supabaseUrl } from "./site-config.mjs";
-import { safeBookingUrl } from "./first-look.mjs";
+import { safeBookingUrl } from "./booking-url.mjs";
 
 // Calendar-later seam. Resolves how the booking page should behave from the
 // three config switches, without touching the DOM:
