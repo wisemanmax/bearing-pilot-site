@@ -7,9 +7,9 @@ import { supabaseUrl, supabaseKey } from "./site-config.mjs";
 // autosaves in-progress answers to a single localStorage key.
 
 // Six dimensions of financial-operations health for small businesses and
-// nonprofits. The `key` values are stable internal identifiers that also name
+// non-profits. The `key` values are stable internal identifiers that also name
 // the storage columns (dim_cash … dim_owner); the visitor-facing labels below
-// describe the finance/nonprofit lens they now carry.
+// describe the finance/non-profit lens they now carry.
 export const DIMENSIONS = [
   { key: "cash", label: "Cash & liquidity" },
   { key: "profit", label: "Margins & sustainability" },
@@ -33,7 +33,7 @@ export const QUESTIONS = [
     { value: 3, label: "on time, nearly always" }, { value: 2, label: "mostly on time" },
     { value: 1, label: "late often — I chase" }, { value: 0, label: "late enough to squeeze cash" } ] },
 
-  { key: "profit-1", dim: "profit", text: "The true, fully-loaded cost to deliver our main program or product, I know:", anchors: [
+  { key: "profit-1", dim: "profit", text: "The true, fully loaded cost to deliver our main program or product, I know:", anchors: [
     { value: 3, label: "per program or job" }, { value: 2, label: "overall" },
     { value: 1, label: "as a ballpark" }, { value: 0, label: "not really" } ] },
   { key: "profit-2", dim: "profit", text: "Our prices, fees, or grant budgets cover their real costs:", anchors: [
