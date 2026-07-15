@@ -1,6 +1,6 @@
 /* First Bearing booking-request flow. Builds on the Chart Room form language in
-   styles.css (.contact-field, #contact-note); adds the structured time-window
-   rows, the select styling those rows need, and the visually-hidden honeypot. */
+   styles.css (.contact-field); adds the richer intake fieldsets, the accessible
+   date + time picker (booking-calendar.mjs), and the visually-hidden honeypot. */
 
 .booking-terms {
   margin: 1.25rem 0 0;
@@ -25,28 +25,257 @@
   background: var(--paper);
 }
 
-.booking-windows {
-  border: 1px solid var(--sand);
-  border-radius: 4px;
-  margin: 0 0 1rem;
-  padding: 0.75rem 1rem;
+/* Grouped fieldsets get a little air between them. */
+#booking-form > fieldset {
+  margin: 0 0 var(--space-6, 1.75rem);
+  padding: 0;
+  border: 0;
 }
 
-.booking-window {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+#booking-form > fieldset > legend {
+  margin-bottom: var(--space-3, 0.85rem);
+  color: var(--ink-teal-900, #0a2424);
+  font-family: var(--serif);
+  font-size: var(--type-h3, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-.booking-window:last-child {
-  margin-bottom: 0;
+/* Radio groups: inline chips that read at a glance. */
+.booking-choice {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  border: 0;
 }
 
-.booking-window label {
-  display: block;
+.booking-choice legend {
+  margin-bottom: 0.4rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.booking-choice label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0.35rem 0.4rem 0;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--sand-500, #c7b9a3);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.booking-choice label:hover,
+.booking-choice label:focus-within {
+  border-color: var(--brass-400, #b08d57);
+  background: var(--sand-100, #f5eee3);
+}
+
+.booking-choice label:has(input:checked) {
+  border-color: var(--brass-500, #987746);
+  background: var(--sand-100, #f5eee3);
+}
+
+/* --- Calendar --------------------------------------------------------------- */
+.booking-cal-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.booking-calendar {
+  max-width: 22rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--sand-500, #c7b9a3);
+  border-radius: var(--radius-sm, 8px);
+  background: var(--sand-50, #fbf7ef);
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.cal-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.cal-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--sand-500, #c7b9a3);
+  border-radius: 6px;
+  background: var(--paper, #fbf7ef);
+  color: var(--ink-teal-800, #0e2f2f);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, scale 140ms ease;
+}
+
+.cal-nav:hover:not(:disabled) {
+  border-color: var(--brass-400, #b08d57);
+  background: var(--sand-100, #f5eee3);
+}
+
+.cal-nav:active:not(:disabled) { scale: 0.94; }
+
+.cal-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.cal-grid {
+  display: grid;
+  gap: 2px;
+}
+
+.cal-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-dow-cell {
+  padding: 0.35rem 0;
+  color: var(--brass-600, #8a6538);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+}
+
+.cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 2.2rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--paper, #fbf7ef);
+  color: var(--ink-teal-900, #0a2424);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease, scale 120ms ease;
+}
+
+.cal-day:hover:not(:disabled) {
+  border-color: var(--brass-400, #b08d57);
+  background: var(--sand-100, #f5eee3);
+}
+
+.cal-day:active:not(:disabled) { scale: 0.92; }
+
+.cal-day.is-selected {
+  border-color: var(--brass-600, #8a6538);
+  background: var(--brass-400, #b08d57);
+  color: var(--ink-teal-900, #0a2424);
+  font-weight: 650;
+}
+
+.cal-day.is-unavailable {
+  color: var(--sand-700, #998b78);
+  background: transparent;
+  cursor: default;
+}
+
+.cal-day:focus-visible {
+  outline: 3px solid var(--brass-600, #8a6538);
+  outline-offset: 2px;
+}
+
+/* --- Chosen slots ----------------------------------------------------------- */
+.booking-picks { margin: 0.25rem 0 0.5rem; }
+
+.cal-empty {
+  margin: 0;
+  color: var(--sand-900, #6d6253);
+  font-size: 0.92rem;
+}
+
+.cal-pick {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.6rem 0.5rem 0.85rem;
+  border: 1px solid var(--sand-500, #c7b9a3);
+  border-left: 4px solid var(--brass-400, #b08d57);
+  border-radius: 6px;
+  background: var(--sand-50, #fbf7ef);
+}
+
+.cal-pick-date {
+  flex: 1 1 auto;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cal-pick-time select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--teal);
+  border-radius: 4px;
+  font: inherit;
+  background: var(--paper);
+}
+
+.cal-pick-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--sand-500, #c7b9a3);
+  border-radius: 6px;
+  background: var(--paper, #fbf7ef);
+  color: var(--ink-teal-800, #0e2f2f);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, scale 120ms ease;
+}
+
+.cal-pick-remove:hover {
+  border-color: var(--brass-500, #987746);
+  background: var(--sand-100, #f5eee3);
+}
+
+.cal-pick-remove:active { scale: 0.92; }
+
+.booking-picks-count {
+  margin: 0.25rem 0 0;
+  color: var(--brass-700, #76542e);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Honeypot: off-screen, out of the tab order, hidden from assistive tech.
@@ -68,6 +297,11 @@
   font-size: 0.9rem;
 }
 
+#booking-status[data-tone="error"],
+#booking-status[data-tone="warn"] {
+  border-left-color: var(--brass-500, #987746);
+}
+
 #booking-success,
 #booking-closed p {
   padding: 1rem 1.25rem;
@@ -77,7 +311,17 @@
 }
 
 @media (max-width: 30rem) {
-  .booking-window {
-    grid-template-columns: 1fr;
-  }
+  .booking-calendar { max-width: none; }
+  .cal-pick { flex-wrap: wrap; }
+}
+
+/* Reduced motion: the calendar's small transitions are already gentle, but
+   never let the press-scale fire under a reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  .cal-nav,
+  .cal-day,
+  .cal-pick-remove { transition: none; }
+  .cal-nav:active,
+  .cal-day:active,
+  .cal-pick-remove:active { scale: 1; }
 }

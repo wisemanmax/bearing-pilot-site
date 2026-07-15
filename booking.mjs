@@ -1,5 +1,6 @@
 import { bookingUrl, supabaseKey, supabaseUrl } from "./site-config.mjs";
 import { safeBookingUrl } from "./booking-url.mjs";
+import { mountCalendar } from "./booking-calendar.mjs";
 
 // Calendar-later seam. Resolves how the booking page should behave from the
 // three config switches, without touching the DOM:
@@ -25,14 +26,36 @@ export function resolveBookingDestination({ bookingUrl, supabaseUrl, supabaseKey
 }
 
 // A request needs a name, a plausible email, a timezone, and at least one
-// preferred window. Returns the list of missing/invalid field names.
+// preferred date+time. Returns the list of missing/invalid field names. Each
+// window carries a concrete { date, time } chosen on the calendar.
 export function validateBookingRequest({ name, email, timezone, windows }) {
   const errors = [];
   if (typeof name !== "string" || name.trim() === "") errors.push("name");
   if (typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email.trim())) errors.push("email");
   if (typeof timezone !== "string" || timezone.trim() === "") errors.push("timezone");
-  if (!Array.isArray(windows) || windows.length === 0) errors.push("windows");
+  const validWindows = Array.isArray(windows) && windows.length > 0 &&
+    windows.every((w) => w && typeof w.date === "string" && w.date.trim() !== "" &&
+      typeof w.time === "string" && w.time.trim() !== "");
+  if (!validWindows) errors.push("windows");
   return errors;
+}
+
+// Fold the richer, structured intake (organization type, focus, meeting format,
+// phone) and the free-text prompt into one founder-readable note, capped to the
+// column's 2000-char limit. Order is deliberate: the qualitative context first,
+// then the visitor's own words. Returns null when nothing was supplied.
+export function composeBookingNote({ orgType, focus, format, phone, message } = {}) {
+  const meta = [];
+  if (orgType && orgType.trim()) meta.push(`Organization type: ${orgType.trim()}`);
+  if (focus && focus.trim()) meta.push(`Focus: ${focus.trim()}`);
+  if (format && format.trim()) meta.push(`Preferred format: ${format.trim()}`);
+  if (phone && phone.trim()) meta.push(`Phone: ${phone.trim()}`);
+  const words = (message || "").trim();
+  const parts = [];
+  if (meta.length) parts.push(meta.join("\n"));
+  if (words) parts.push(words);
+  const note = parts.join("\n\n");
+  return note ? note.slice(0, 2000) : null;
 }
 
 // Write-only insert into bearing_booking_requests. Mirrors the First Look
@@ -91,46 +114,63 @@ if (typeof document !== "undefined") {
     const submit = document.querySelector("#booking-submit");
     const status = document.querySelector("#booking-status");
     const success = document.querySelector("#booking-success");
+    const calRoot = document.querySelector("#booking-calendar");
+    const picksRoot = document.querySelector("#booking-picks");
+    const picksCount = document.querySelector("#booking-picks-count");
 
-    if (form && submit && status && success) {
+    if (form && submit && status && success && calRoot && picksRoot) {
       let submitting = false;
+
+      // The calendar owns the preferred-slot state; it reports the live count so
+      // the form can reflect how many of the three slots are chosen.
+      const calendar = mountCalendar({
+        calRoot,
+        picksRoot,
+        onChange: ({ count, full }) => {
+          if (picksCount) {
+            picksCount.textContent = count === 0
+              ? "No preferred times chosen yet."
+              : `${count} of 3 preferred ${count === 1 ? "time" : "times"} chosen${full ? " — that's the most we ask for." : "."}`;
+          }
+        },
+      });
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (submitting) return;
 
         const data = new FormData(form);
-        const windows = [1, 2, 3]
-          .map((i) => ({ day: (data.get(`day${i}`) || "").trim(), time: (data.get(`time${i}`) || "").trim() }))
-          .filter((window) => window.day !== "");
 
-        // Fold the "other" timezone detail into the timezone value and the
-        // earliest-date into the note, so the request is schedulable without
-        // changing the stored shape.
+        // Fold the "other" timezone detail into the timezone value.
         let timezone = (data.get("timezone") || "").trim();
         const timezoneOther = (data.get("timezone-other") || "").trim();
         if (timezone === "other" && timezoneOther) timezone = `Other: ${timezoneOther}`;
 
-        const noteParts = [];
-        const rawNote = (data.get("note") || "").trim();
-        if (rawNote) noteParts.push(rawNote);
-        const earliest = (data.get("earliest-date") || "").trim();
-        if (earliest) noteParts.push(`Earliest date: ${earliest}`);
+        const windows = calendar.getPicks();
 
         const payload = {
           name: (data.get("name") || "").trim(),
           email: (data.get("email") || "").trim(),
           business_name: (data.get("business_name") || "").trim() || null,
-          note: noteParts.join(" · ") || null,
+          note: composeBookingNote({
+            orgType: data.get("org_type") || "",
+            focus: data.get("focus") || "",
+            format: data.get("meeting_format") || "",
+            phone: data.get("phone") || "",
+            message: data.get("note") || "",
+          }),
           timezone,
           windows,
           honeypot_tripped: (data.get("company") || "").trim() !== "",
         };
 
-        if (validateBookingRequest(payload).length > 0) {
+        const missing = validateBookingRequest(payload);
+        if (missing.length > 0) {
           status.hidden = false;
-          status.textContent =
-            "Add your name, a valid email, a timezone, and at least one preferred time window.";
+          status.dataset.tone = "warn";
+          status.textContent = missing.includes("windows")
+            ? "Choose at least one preferred date and time on the calendar, plus your name, a valid email, and a timezone."
+            : "Add your name, a valid email, and a timezone before sending.";
           return;
         }
 
@@ -143,11 +183,13 @@ if (typeof document !== "undefined") {
         if (ok) {
           form.hidden = true;
           success.hidden = false;
+          success.focus?.();
         } else {
           submitting = false;
           submit.disabled = false;
           submit.textContent = "Request my First Bearing";
           status.hidden = false;
+          status.dataset.tone = "error";
           status.textContent =
             "That didn't send — your details are still here. Please try again in a moment.";
         }

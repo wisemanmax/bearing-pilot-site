@@ -44,9 +44,9 @@
   <main id="main">
     <section class="page-intro depth-band intro-entrance grain">
       <h1>Request your First Bearing</h1>
-      <p>There's no live calendar yet, so this is a request rather than a
-        confirmed time. Send a few preferred windows and the founder confirms a
-        time with you within two business days.</p>
+      <p>Tell us a little about your work and pick the dates and times that suit
+        you. There's no instant calendar yet, so the founder confirms one of your
+        chosen slots within two business days.</p>
     </section>
 
     <section class="service chart-card motion-lift reveal" aria-labelledby="booking-terms-heading">
@@ -78,7 +78,7 @@
 
       <form id="booking-form">
         <fieldset id="booking-fields">
-          <legend>Your details</legend>
+          <legend>About you</legend>
           <p class="contact-field">
             <label for="booking-name">Name</label>
             <input id="booking-name" name="name" type="text" autocomplete="name" required>
@@ -88,13 +88,45 @@
             <input id="booking-email" name="email" type="email" autocomplete="email" required>
           </p>
           <p class="contact-field">
-            <label for="booking-business">Business name <span aria-hidden="true">(optional)</span></label>
-            <input id="booking-business" name="business_name" type="text" autocomplete="organization">
+            <label for="booking-phone">Phone <span aria-hidden="true">(optional)</span></label>
+            <input id="booking-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
           </p>
           <p class="contact-field">
-            <label for="booking-note">What prompted this? <span aria-hidden="true">(optional)</span></label>
-            <textarea id="booking-note" name="note" rows="3"></textarea>
+            <label for="booking-business">Organization name <span aria-hidden="true">(optional)</span></label>
+            <input id="booking-business" name="business_name" type="text" autocomplete="organization">
           </p>
+          <fieldset class="booking-choice">
+            <legend>What kind of organization?</legend>
+            <label><input type="radio" name="org_type" value="Small business"> Small business</label>
+            <label><input type="radio" name="org_type" value="Nonprofit"> Nonprofit</label>
+            <label><input type="radio" name="org_type" value="Other"> Other</label>
+          </fieldset>
+        </fieldset>
+
+        <fieldset id="booking-focus-fields">
+          <legend>What you'd like from the First Bearing</legend>
+          <p class="contact-field">
+            <label for="booking-focus">Main thing you want clearer <span aria-hidden="true">(optional)</span></label>
+            <select id="booking-focus" name="focus">
+              <option value="">No single thing &mdash; general clarity</option>
+              <option value="Cash flow & runway">Cash flow &amp; runway</option>
+              <option value="Grant management & reporting">Grant management &amp; reporting</option>
+              <option value="Banking & lending">Banking &amp; lending relationships</option>
+              <option value="Pricing & margins">Pricing &amp; margins</option>
+              <option value="Financial systems & controls">Financial systems &amp; controls</option>
+              <option value="Something else">Something else</option>
+            </select>
+          </p>
+          <p class="contact-field">
+            <label for="booking-note">Anything that would help us prepare? <span aria-hidden="true">(optional)</span></label>
+            <textarea id="booking-note" name="note" rows="3" maxlength="1200"></textarea>
+          </p>
+          <p class="contact-caution">Please keep sensitive figures and account
+            details for the scheduled conversation, not this form.</p>
+        </fieldset>
+
+        <fieldset id="booking-time-fields">
+          <legend>Preferred times</legend>
           <p class="contact-field">
             <label for="booking-timezone">Your timezone</label>
             <select id="booking-timezone" name="timezone" required>
@@ -112,82 +144,18 @@
             <label for="booking-timezone-other">If other, which timezone? <span aria-hidden="true">(optional)</span></label>
             <input id="booking-timezone-other" name="timezone-other" type="text" maxlength="80" autocomplete="off">
           </p>
-        </fieldset>
+          <fieldset class="booking-choice">
+            <legend>Meeting format</legend>
+            <label><input type="radio" name="meeting_format" value="Video call" checked> Video call</label>
+            <label><input type="radio" name="meeting_format" value="Phone"> Phone</label>
+          </fieldset>
 
-        <fieldset class="booking-windows">
-          <legend>Three preferred time windows</legend>
-          <p class="contact-caution">Pick a day and a rough time of day for each.
-            Fill in at least one &mdash; more gives us room to find a fit.</p>
-          <p class="contact-field">
-            <label for="booking-earliest">Earliest date you could meet <span aria-hidden="true">(optional)</span></label>
-            <input id="booking-earliest" name="earliest-date" type="date" autocomplete="off">
-          </p>
-
-          <div class="booking-window">
-            <span class="contact-field">
-              <label for="booking-day1">Window one &mdash; day</label>
-              <select id="booking-day1" name="day1">
-                <option value="">No preference</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-              </select>
-            </span>
-            <span class="contact-field">
-              <label for="booking-time1">Window one &mdash; time of day</label>
-              <select id="booking-time1" name="time1">
-                <option value="morning">Morning</option>
-                <option value="midday">Midday</option>
-                <option value="afternoon">Afternoon</option>
-              </select>
-            </span>
-          </div>
-
-          <div class="booking-window">
-            <span class="contact-field">
-              <label for="booking-day2">Window two &mdash; day</label>
-              <select id="booking-day2" name="day2">
-                <option value="">No preference</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-              </select>
-            </span>
-            <span class="contact-field">
-              <label for="booking-time2">Window two &mdash; time of day</label>
-              <select id="booking-time2" name="time2">
-                <option value="morning">Morning</option>
-                <option value="midday">Midday</option>
-                <option value="afternoon">Afternoon</option>
-              </select>
-            </span>
-          </div>
-
-          <div class="booking-window">
-            <span class="contact-field">
-              <label for="booking-day3">Window three &mdash; day</label>
-              <select id="booking-day3" name="day3">
-                <option value="">No preference</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-              </select>
-            </span>
-            <span class="contact-field">
-              <label for="booking-time3">Window three &mdash; time of day</label>
-              <select id="booking-time3" name="time3">
-                <option value="morning">Morning</option>
-                <option value="midday">Midday</option>
-                <option value="afternoon">Afternoon</option>
-              </select>
-            </span>
-          </div>
+          <p class="booking-cal-lead" id="booking-cal-lead">Choose up to three weekday
+            times that work for you. The founder confirms one of them &mdash; times
+            are in the timezone you selected above.</p>
+          <div id="booking-calendar" class="booking-calendar" aria-describedby="booking-cal-lead"></div>
+          <div id="booking-picks" class="booking-picks"></div>
+          <p id="booking-picks-count" class="booking-picks-count" role="status" aria-live="polite">No preferred times chosen yet.</p>
         </fieldset>
 
         <p class="booking-honeypot" aria-hidden="true">
@@ -199,7 +167,7 @@
         <p id="booking-status" role="status" aria-live="polite" hidden></p>
       </form>
 
-      <p id="booking-success" role="status" hidden>Request received &mdash; expect
+      <p id="booking-success" role="status" tabindex="-1" hidden>Request received &mdash; expect
         a confirmation within two business days.</p>
     </section>
 
