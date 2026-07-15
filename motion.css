@@ -112,13 +112,19 @@ html.js .hero-entrance .hero-lede { animation-delay: 830ms; }
 html.js .hero-entrance .product-line { animation-delay: 920ms; }
 html.js .hero-entrance .hero-cta { animation-delay: 1010ms; }
 
+/* Intro entrances match both shapes: bands whose content motion.mjs wrapped
+   into .band-depart (hero/depth-band pages) and unwrapped bands (process). */
 html.js .intro-entrance > h1,
-html.js .intro-entrance > p {
+html.js .intro-entrance > p,
+html.js .intro-entrance > .band-depart > h1,
+html.js .intro-entrance > .band-depart > p {
   animation: hero-follow var(--motion-duration) var(--motion-ease) both;
 }
 
-html.js .intro-entrance > h1 { animation-delay: 100ms; }
-html.js .intro-entrance > p { animation-delay: 180ms; }
+html.js .intro-entrance > h1,
+html.js .intro-entrance > .band-depart > h1 { animation-delay: 100ms; }
+html.js .intro-entrance > p,
+html.js .intro-entrance > .band-depart > p { animation-delay: 180ms; }
 
 @keyframes hero-rise {
   from {
@@ -159,6 +165,41 @@ html.js .intro-entrance > p { animation-delay: 180ms; }
 }
 
 /* CTA glow, interaction lift, and nav underline. */
+/* Press gesture: buttons compress slightly under the pointer and spring
+   back on release. The scale property composes with the magnetic pull's
+   inline transform, and the box-shadow entry keeps .cta-glow's hover alive
+   (transition is not additive across rules). */
+.cta {
+  transition:
+    scale 140ms var(--motion-ease),
+    box-shadow 200ms var(--motion-ease);
+}
+
+.cta:active {
+  scale: 0.97;
+}
+
+/* Choosing an answer ignites the option — the selected state reads at a
+   glance on the First Look and Health Check quizzes. */
+#first-look-form fieldset label:has(input:checked),
+.hc-q label:has(input:checked) {
+  border-color: var(--brass-500);
+  background: var(--sand-100);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #first-look-form fieldset label:has(input:checked),
+  .hc-q label:has(input:checked) {
+    animation: option-ignite 240ms var(--motion-ease);
+  }
+
+  @keyframes option-ignite {
+    from { scale: 0.985; }
+    60% { scale: 1.008; }
+    to { scale: 1; }
+  }
+}
+
 .cta-glow {
   transition: box-shadow 200ms var(--motion-ease);
 }
@@ -193,6 +234,12 @@ html.js .hero-entrance .hero-cta.cta-glow {
   transition:
     transform 200ms var(--motion-ease),
     box-shadow 200ms var(--motion-ease);
+}
+
+/* Depth stage for the pointer tilt motion.mjs drives on the cards inside. */
+.offer-grid,
+.artifact {
+  perspective: 1200px;
 }
 
 .motion-lift:hover,
@@ -247,6 +294,12 @@ html.js .reveal.in-view .reveal-stagger > .motion-lift:focus-within {
 @supports (view-transition-name: none) {
   @view-transition {
     navigation: auto;
+  }
+
+  /* The masthead persists as a shared element across page navigations —
+     the chrome holds steady while the content cross-fades beneath it. */
+  .masthead {
+    view-transition-name: masthead;
   }
 
   ::view-transition-old(root) {
@@ -344,6 +397,371 @@ html.js #first-look-result.result-in {
   }
 }
 
+/* --- Scroll-reactive compass field ----------------------------------------
+   The brand compass, enlarged behind the dark intro band and driven by scroll.
+   motion.mjs injects it into .hero / .page-intro.depth-band, which keep their
+   own dark backgrounds — so with JS off there is simply no compass and no
+   contrast change. Only transform + opacity animate; will-change on moving
+   layers only. Intensity is tunable from the four custom properties below. */
+.hero,
+.page-intro.depth-band {
+  position: relative;
+}
+
+.hero > .compass-field,
+.page-intro.depth-band > .compass-field {
+  --compass-max-opacity: 0.14;
+  --compass-rotation-range: 300deg;
+  --compass-scale-to: 1.14;
+  --compass-parallax: 5vh;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--brass-300, #c8aa76);
+  opacity: var(--compass-max-opacity);
+  pointer-events: none;
+}
+
+.compass-field__svg {
+  width: min(104vh, 104vw);
+  height: min(104vh, 104vw);
+  max-width: none;
+  overflow: visible;
+  transform-origin: center;
+}
+
+.compass-field__ring,
+.compass-field__needle {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.compass-field circle,
+.compass-field__ticks path {
+  fill: none;
+  stroke: currentColor;
+  vector-effect: non-scaling-stroke;
+}
+
+.compass-field__ring > circle { stroke-width: 1.1; }
+.compass-field__ticks path { stroke-width: 1.1; stroke-linecap: round; }
+.compass-field__needle { fill: currentColor; }
+.compass-field__hub { fill: var(--ink-teal-900, #0a2424); stroke: none; }
+
+/* Static default heading — the frame shown with JS off, before the timeline
+   resolves, and (below) under reduced motion. rAF fallback + native timeline
+   override these via inline styles / keyframes. */
+.compass-field__needle { rotate: var(--compass-needle-rot, -24deg); }
+.compass-field__ring { rotate: var(--compass-ring-rot, 10deg); }
+.compass-field__ticks { opacity: 0.7; }
+
+.compass-field__svg,
+.compass-field__ring,
+.compass-field__needle { will-change: transform; }
+
+@supports (animation-timeline: scroll()) {
+  /* The compass lives in the intro band, so the full sweep is scoped to the
+     first ~viewport of scroll (animation-range) — it plays out while the band
+     is on screen, then the band (and compass) scroll away. animation-timeline
+     and animation-range must follow the `animation` shorthand, which would
+     otherwise reset them. */
+  .hero > .compass-field .compass-field__needle,
+  .page-intro.depth-band > .compass-field .compass-field__needle {
+    animation: compass-needle-sweep linear both;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    animation-timeline: scroll(root block);
+    animation-range: 0 92vh;
+  }
+
+  .hero > .compass-field .compass-field__ring,
+  .page-intro.depth-band > .compass-field .compass-field__ring {
+    animation: compass-ring-turn linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 92vh;
+  }
+
+  .hero > .compass-field .compass-field__ticks,
+  .page-intro.depth-band > .compass-field .compass-field__ticks {
+    animation: compass-ticks-breathe linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 92vh;
+  }
+
+  .hero > .compass-field .compass-field__svg,
+  .page-intro.depth-band > .compass-field .compass-field__svg {
+    animation: compass-drift linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 92vh;
+  }
+}
+
+/* The needle overshoots its bearing near the end of the sweep and settles
+   back — the weighted, physical feel of a real instrument. */
+@keyframes compass-needle-sweep {
+  from { rotate: 0deg; }
+  82% { rotate: calc(var(--compass-rotation-range) * 1.06); }
+  to { rotate: var(--compass-rotation-range); }
+}
+
+@keyframes compass-ring-turn {
+  from { rotate: 0deg; }
+  85% { rotate: calc(var(--compass-rotation-range) * -0.44); }
+  to { rotate: calc(var(--compass-rotation-range) * -0.4); }
+}
+
+@keyframes compass-ticks-breathe {
+  0% { opacity: 0.85; }
+  50% { opacity: 0.32; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes compass-drift {
+  from { scale: 1; translate: 0 calc(var(--compass-parallax) * -0.6); }
+  to { scale: var(--compass-scale-to); translate: 0 var(--compass-parallax); }
+}
+
+/* Cheap frames matter: drop the compass on very small viewports. */
+@media (max-width: 640px) {
+  .hero > .compass-field,
+  .page-intro.depth-band > .compass-field { display: none; }
+}
+
+/* --- Scroll story ----------------------------------------------------------
+   Where scroll-driven animations are supported (and motion is welcome), the
+   one-shot reveal vocabulary upgrades to scrubbed motion: every section rides
+   the scroll, the intro band's content departs over the compass, and the
+   signature Chart Room moments (One-Page Truth, degree numerals, footer
+   compass) deepen the takes styles.css establishes. Everywhere else, the
+   IntersectionObserver reveals above keep working unchanged. Only transform
+   and opacity animate; independent translate/rotate/scale properties are used
+   so .motion-lift's hover transform still composes. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Every revealed section scrubs with the scroll instead of one-shot. */
+    html.js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: scrub-rise 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 25%;
+    }
+
+    /* Offer cards arrive in sequence, each a beat behind the last. */
+    html.js .offer-grid > * {
+      animation: scrub-rise 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 32%;
+    }
+
+    html.js .offer-grid > *:nth-child(2) { animation-range: entry 12% cover 42%; }
+    html.js .offer-grid > *:nth-child(3) { animation-range: entry 24% cover 52%; }
+
+    /* The band's content drifts up and dims as it scrolls out, while the
+       compass behind it holds course — layered instrument depth. */
+    html.js .hero .band-depart,
+    html.js .page-intro.depth-band .band-depart {
+      animation: band-depart 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: exit 0% exit 90%;
+      will-change: transform;
+    }
+
+    /* The One-Page Truth lands on the chart table: rises, untilts, settles. */
+    html.js .truth-card {
+      animation: truth-card-arrive 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 45%;
+    }
+
+    /* Degree numerals calibrate into place on every page. */
+    html.js .section-num {
+      animation: num-settle-deep 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 35%;
+    }
+
+    /* The footer compass swings to its heading as the page bottoms out. */
+    html.js .footer-compass {
+      animation: footer-compass-turn 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 100%;
+    }
+
+    /* Hero words scatter as they depart — each drifts on its own vector over
+       the wrapper's shared exit, so the headline pulls apart like instruments
+       lifting off a chart. The entrance animation rides in the same list;
+       time delays don't apply to scroll timelines, so the per-word entrance
+       delays (higher-specificity longhands) keep governing the first entry. */
+    html.js .hero-entrance .hero-word {
+      animation:
+        hero-rise 640ms var(--motion-ease) both,
+        word-depart 1ms linear both;
+      animation-timeline: auto, scroll(root block);
+      animation-range: normal, 0 92vh;
+    }
+
+    html.js .hero-entrance .hero-word:nth-child(odd) { --word-x: -0.5vw; }
+    html.js .hero-entrance .hero-word:nth-child(even) { --word-x: 0.7vw; }
+    html.js .hero-entrance .hero-word:nth-child(3n) { --word-drift: -7.5vh; }
+    html.js .hero-entrance .hero-word:nth-child(3n + 1) { --word-drift: -3.5vh; }
+    html.js .hero-entrance .hero-word:nth-child(3n + 2) { --word-drift: -5.5vh; }
+
+    /* A warm brass glow on the intro band that cools as you set off. */
+    html.js .hero::before,
+    html.js .page-intro.depth-band::before {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      background: radial-gradient(52rem circle at 50% 30%, rgba(200, 170, 118, 0.16), transparent 62%);
+      content: "";
+      pointer-events: none;
+      animation: glow-cool 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: exit 0% exit 70%;
+    }
+
+    /* Section headings lead their bodies in by a beat — layered arrival. */
+    html.js .reveal > h2 {
+      animation: scrub-rise 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: cover 0% cover 18%;
+    }
+
+    /* Stagger lists trade their one-shot delays for sequenced scroll ranges:
+       steps, diagnostic questions, FAQ items, principles, resources, process
+       stages and the service grid all arrive item by item, scrubbing with the
+       scroll on every page. */
+    html.js .reveal .reveal-stagger > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: scrub-rise 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 30%;
+    }
+
+    html.js .reveal .reveal-stagger > :nth-child(2) { animation-range: entry 6% cover 36%; }
+    html.js .reveal .reveal-stagger > :nth-child(3) { animation-range: entry 12% cover 42%; }
+    html.js .reveal .reveal-stagger > :nth-child(4) { animation-range: entry 18% cover 48%; }
+    html.js .reveal .reveal-stagger > :nth-child(5) { animation-range: entry 24% cover 54%; }
+    html.js .reveal .reveal-stagger > :nth-child(6) { animation-range: entry 30% cover 60%; }
+
+    /* The One-Page Truth writes itself as it arrives: header, meta, then the
+       findings line by line, the first move, and finally the measure lands. */
+    html.js .truth-doc-meta,
+    html.js .truth-doc-block {
+      animation: truth-line-in 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 45%;
+    }
+
+    html.js .truth-findings > li {
+      animation: truth-line-in 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 40%;
+    }
+
+    html.js .truth-findings > li:nth-child(2) { animation-range: entry 12% cover 52%; }
+    html.js .truth-findings > li:nth-child(3) { animation-range: entry 24% cover 64%; }
+
+    html.js .truth-measure-trend {
+      display: inline-block;
+      animation: measure-land 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 30% cover 80%;
+    }
+
+    @keyframes scrub-rise {
+      from {
+        opacity: 0;
+        translate: 0 34px;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+
+    @keyframes band-depart {
+      from {
+        opacity: 1;
+        translate: 0 0;
+      }
+      to {
+        opacity: 0.15;
+        translate: 0 -9%;
+      }
+    }
+
+    @keyframes truth-card-arrive {
+      from { transform: translateY(52px) rotate(-2.2deg) scale(0.965); }
+      to { transform: translateY(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes num-settle-deep {
+      from {
+        opacity: 0.12;
+        rotate: var(--num-turn, -6deg);
+        translate: 0 18px;
+      }
+      to {
+        opacity: 1;
+        rotate: 0deg;
+        translate: 0 0;
+      }
+    }
+
+    @keyframes footer-compass-turn {
+      from { rotate: -40deg; }
+      to { rotate: 0deg; }
+    }
+
+    @keyframes word-depart {
+      from { translate: 0 0; }
+      to { translate: var(--word-x, 0vw) var(--word-drift, -5vh); }
+    }
+
+    @keyframes glow-cool {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes truth-line-in {
+      from {
+        opacity: 0;
+        translate: 0 16px;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+
+    /* The 90-day measure lands with a settle — rises past, eases back. */
+    @keyframes measure-land {
+      from {
+        opacity: 0;
+        translate: 0 18px;
+        scale: 0.94;
+      }
+      70% {
+        opacity: 1;
+        translate: 0 -2px;
+        scale: 1.03;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+      }
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -389,6 +807,18 @@ html.js #first-look-result.result-in {
   html.js .scroll-progress {
     display: none;
   }
+
+  /* Compass freezes to a single static heading — no scroll reactivity. */
+  .compass-field__needle,
+  .compass-field__ring,
+  .compass-field__ticks,
+  .compass-field__svg {
+    animation: none !important;
+  }
+  .compass-field__needle { rotate: var(--compass-needle-rot, -24deg); }
+  .compass-field__ring { rotate: var(--compass-ring-rot, 10deg); }
+  .compass-field__ticks { opacity: 0.7; }
+  .compass-field__svg { scale: 1; translate: none; }
 
   html.js .bearing-mark:hover .bearing-needle {
     animation: none;

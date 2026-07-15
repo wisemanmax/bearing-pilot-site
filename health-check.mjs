@@ -248,12 +248,59 @@ function collectAnswers(form) {
   return answers;
 }
 
+// The overall score counts up to its value when motion is welcome — the
+// number arriving is the payoff beat. Assistive tech reads the final score
+// from the figure's label, never the ticking digits.
+let countRaf = 0;
+let countTimer = 0;
+function showOverall(overallText, finalScore) {
+  const figure = overallText.closest(".hc-overall-figure");
+  if (figure) {
+    figure.setAttribute("aria-label", `${finalScore} out of 100 overall`);
+    for (const child of figure.children) child.setAttribute("aria-hidden", "true");
+  }
+  if (countRaf) cancelAnimationFrame(countRaf);
+  if (countTimer) clearTimeout(countTimer);
+  countRaf = 0;
+  countTimer = 0;
+  const reduceMotion = typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion || typeof requestAnimationFrame !== "function") {
+    overallText.textContent = String(finalScore);
+    return;
+  }
+  const started = performance.now();
+  const DURATION = 650;
+  overallText.textContent = "0";
+  const tick = (now) => {
+    const t = Math.min(1, (now - started) / DURATION);
+    const eased = 1 - (1 - t) ** 3;
+    overallText.textContent = String(Math.round(eased * finalScore));
+    if (t < 1) {
+      countRaf = requestAnimationFrame(tick);
+    } else {
+      countRaf = 0;
+      clearTimeout(countTimer);
+      countTimer = 0;
+    }
+  };
+  countRaf = requestAnimationFrame(tick);
+  // rAF can be throttled to a standstill (hidden or backgrounded tabs); the
+  // score must never be the casualty — settle to the real number regardless.
+  countTimer = setTimeout(() => {
+    if (countRaf) cancelAnimationFrame(countRaf);
+    countRaf = 0;
+    countTimer = 0;
+    overallText.textContent = String(finalScore);
+  }, DURATION + 200);
+}
+
 function renderResults(result, root) {
   const needle = root.querySelector("#hc-needle");
   const overallText = root.querySelector("#hc-overall");
   if (result.overall0to100 !== null) {
     if (needle) needle.setAttribute("transform", `rotate(${needleAngle(result.overall0to100)} 100 100)`);
-    if (overallText) overallText.textContent = String(result.overall0to100);
+    if (overallText) showOverall(overallText, result.overall0to100);
   }
 
   const bars = root.querySelector("#hc-bars");
