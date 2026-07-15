@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Bearing compass">
+  <rect width="100" height="100" rx="18" fill="#0a2424"/>
+  <circle cx="50" cy="50" r="33" fill="none" stroke="#c8aa76" stroke-width="1.1"/>
+  <g stroke="#c8aa76" stroke-width="1.1" stroke-linecap="round">
+    <path d="M50 12v9 M50 88v-9 M12 50h9 M88 50h-9"/>
+    <path d="M71.2 28.8l4.3-4.3 M71.2 71.2l4.3 4.3 M28.8 71.2l-4.3 4.3 M28.8 28.8l-4.3-4.3"/>
+  </g>
+  <path d="M50 13L54 46L75 50L54 54L50 87L46 54L25 50L46 46Z" fill="#c8aa76"/>
+  <circle cx="50" cy="50" r="4.5" fill="#0a2424"/>
+</svg>
