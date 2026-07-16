@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <meta name="description" content="Bearing admin console.">
+  <meta name="theme-color" content="#081a40">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Admin — BEARING°</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.mjs"></script>
+</head>
+<body class="admin-body">
+
+  <header class="masthead admin-masthead">
+    <p class="wordmark">BEARING&deg;</p>
+    <p class="descriptor">Admin console &mdash; founder access only</p>
+  </header>
+
+  <main id="main" class="admin-main">
+
+    <section id="admin-closed" class="admin-card" hidden>
+      <h1>Admin isn't available</h1>
+      <p>The backend isn't configured on this build.</p>
+    </section>
+
+    <section id="admin-login" class="admin-card" hidden>
+      <h1>Sign in</h1>
+      <p>Admin access uses the same emailed 6-digit code as the client portal
+        &mdash; but only emails on the admin list can see anything once inside.</p>
+      <form id="admin-email-form">
+        <label for="admin-email">Email address</label>
+        <input id="admin-email" type="email" autocomplete="email" required>
+        <button class="cta" type="submit">Email me a code</button>
+      </form>
+      <p id="admin-email-status" role="status" aria-live="polite" hidden></p>
+      <form id="admin-code-form" hidden>
+        <label for="admin-code">6-digit code</label>
+        <input id="admin-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+        <button class="cta" type="submit">Sign in</button>
+      </form>
+      <p id="admin-code-status" role="status" aria-live="polite" hidden></p>
+    </section>
+
+    <section id="admin-denied" class="admin-card" hidden>
+      <h1>Not authorized</h1>
+      <p>This account isn't on the Bearing admin list. If it should be, add the
+        email to <code>bearing_admins</code> from the Supabase dashboard.</p>
+      <button id="admin-denied-signout" class="cta cta-secondary" type="button">Sign out</button>
+    </section>
+
+    <section id="admin-dash" hidden>
+      <div class="admin-bar">
+        <p>Signed in as <strong id="admin-who"></strong></p>
+        <div>
+          <button id="admin-refresh" class="admin-btn" type="button">Refresh</button>
+          <button id="admin-signout" class="admin-btn" type="button">Sign out</button>
+        </div>
+      </div>
+
+      <div class="admin-stats" aria-label="Overview">
+        <div class="admin-stat"><span id="stat-inbox">–</span><p>Open inbox items</p></div>
+        <div class="admin-stat"><span id="stat-newsletter">–</span><p>Newsletter signups</p></div>
+        <div class="admin-stat"><span id="stat-firstlook">–</span><p>First Look reads</p></div>
+        <div class="admin-stat"><span id="stat-health">–</span><p>Health Checks scored</p></div>
+      </div>
+
+      <section class="admin-card">
+        <h2>Inbox <span class="admin-hint">contact messages + booking requests, newest first &mdash; the two-business-day promise lives here</span></h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>When</th><th>Kind</th><th>Who</th><th>Detail</th><th></th></tr></thead>
+            <tbody id="inbox-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Pilots <span class="admin-hint">course plots, assessment invites, members</span></h2>
+        <div id="pilots-wrap" class="admin-pilots"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Flows <span class="admin-hint">the automated client journeys</span></h2>
+        <p>
+          <button id="run-flows" class="admin-btn" type="button">Run flow-runner now</button>
+          <span id="run-flows-status" role="status" aria-live="polite" hidden></span>
+        </p>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Pilot</th><th>Flow</th><th>Started</th><th></th></tr></thead>
+            <tbody id="flows-body"></tbody>
+          </table>
+        </div>
+        <h3>Recent activity &amp; reminders</h3>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>When</th><th>What</th><th>Detail</th></tr></thead>
+            <tbody id="flowlog-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Demand signals <span class="admin-hint">anonymized &mdash; counts only</span></h2>
+        <p>First Look bands: <span id="signal-bands">–</span></p>
+        <p>Latest assessment receipts: <span id="signal-receipts">–</span></p>
+      </section>
+
+      <section class="admin-card">
+        <h2>Newsletter signups</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>When</th><th>Email</th><th>Source</th></tr></thead>
+            <tbody id="newsletter-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>

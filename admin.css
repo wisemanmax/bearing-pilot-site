@@ -1,0 +1,202 @@
+/* Bearing admin console — utilitarian layer over the regal system. Deliberate
+   "standard scheme": no scroll choreography, no compass field; this is a tool. */
+
+.admin-body { background: var(--sand-100); }
+
+.admin-masthead {
+  position: static;
+  display: block;
+  padding: 1rem clamp(1.25rem, 4vw, 3rem);
+  text-align: left;
+}
+
+.admin-masthead .wordmark { font-size: 1.4rem; }
+.admin-masthead .descriptor { margin-top: 0.15rem; font-size: 0.8rem; }
+
+.admin-main {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.admin-card {
+  margin-bottom: 1.25rem;
+  padding: clamp(1.1rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--sand-500);
+  border-radius: var(--radius-md);
+  background: var(--sand-50);
+  box-shadow: var(--shadow-soft);
+}
+
+.admin-card h1 { max-width: none; font-size: 1.6rem; margin-bottom: 0.75rem; }
+.admin-card h2 { font-size: 1.25rem; margin-bottom: 0.9rem; }
+.admin-card h3 { margin: 1.25rem 0 0.6rem; font-family: var(--serif); font-size: 1.05rem; }
+
+.admin-hint {
+  margin-left: 0.5rem;
+  color: var(--sand-900);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Login */
+#admin-login form { margin: 0.75rem 0; }
+#admin-login label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+#admin-login input {
+  width: min(22rem, 100%);
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--sand-500);
+  border-radius: 6px;
+  font: inherit;
+  background: var(--paper);
+}
+
+/* Top bar + stats */
+.admin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-bar p { margin: 0; }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-stat {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--sand-500);
+  border-left: 4px solid var(--brass-400);
+  border-radius: var(--radius-md);
+  background: var(--sand-50);
+}
+
+.admin-stat span {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  color: var(--ink-teal-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-stat p {
+  margin: 0.1rem 0 0;
+  color: var(--sand-900);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Tables */
+.admin-table-wrap { overflow-x: auto; }
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.admin-table th {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 2px solid var(--brass-400);
+  color: var(--brass-700);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.admin-table td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--sand-300);
+  vertical-align: top;
+}
+
+.admin-when { white-space: nowrap; color: var(--sand-900); font-variant-numeric: tabular-nums; }
+.admin-kind { font-weight: 650; white-space: nowrap; }
+.admin-kind-booking { color: var(--brass-700); }
+.admin-detail { max-width: 34rem; overflow-wrap: anywhere; }
+.admin-empty { color: var(--sand-900); font-style: italic; }
+.is-handled td { opacity: 0.55; }
+.is-reminder td { background: var(--sand-100); }
+.admin-done { color: var(--sand-900); font-size: 0.8rem; }
+
+/* Buttons */
+.admin-btn {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--ink-teal-700);
+  border-radius: 6px;
+  background: var(--ink-teal-800);
+  color: var(--sand-50);
+  font: inherit;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.admin-btn:hover:not(:disabled) { background: var(--ink-teal-700); }
+.admin-btn:disabled { opacity: 0.5; cursor: default; }
+.admin-btn-small { padding: 0.25rem 0.6rem; font-size: 0.78rem; }
+.admin-btn:focus-visible { outline: 3px solid var(--brass-500); outline-offset: 2px; }
+
+/* Pilots */
+.admin-pilots { display: grid; gap: 1rem; }
+
+.admin-pilot {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--sand-300);
+  border-left: 4px solid var(--brass-400);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+}
+
+.admin-pilot h3 { margin: 0 0 0.4rem; font-family: var(--serif); }
+.admin-pilot-member { color: var(--sand-900); font-family: var(--sans); font-size: 0.82rem; font-weight: 400; }
+.admin-plot { margin: 0 0 0.6rem; color: var(--ink-teal-700); font-size: 0.85rem; overflow-wrap: anywhere; }
+
+.admin-stage-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.admin-stage-form select,
+.admin-stage-form input {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--sand-500);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.84rem;
+  background: var(--sand-50);
+}
+
+.admin-stage-form input { flex: 1 1 14rem; min-width: 0; }
+
+.admin-invites { display: grid; gap: 0.4rem; justify-items: start; }
+
+.admin-invite {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.admin-invite code {
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--sand-300);
+  border-radius: 4px;
+  background: var(--sand-100);
+  overflow-wrap: anywhere;
+}
+
+#run-flows-status { margin-left: 0.6rem; color: var(--brass-700); font-size: 0.85rem; }
