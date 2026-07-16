@@ -1781,3 +1781,74 @@ input[type="radio"]:focus-visible,
     transform: none;
   }
 }
+
+/* --- The Owner's Shortlist (newsletter capture) ----------------------------- */
+.newsletter p { max-width: 40rem; }
+
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 34rem;
+}
+
+.newsletter-form input[type="email"] {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--teal);
+  border-radius: 4px;
+  font: inherit;
+  background: var(--paper);
+}
+
+.newsletter-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.newsletter-status {
+  max-width: 40rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--sand);
+  border-left: 4px solid var(--teal);
+  border-radius: 4px;
+  font-size: 0.92rem;
+}
+
+/* --- A partner, not a hire (services) --------------------------------------- */
+.partner-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.partner-compare article {
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--sand-500);
+  border-radius: var(--radius-md);
+  background: var(--sand-50);
+}
+
+.partner-compare h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--serif);
+  color: var(--ink-teal-900);
+}
+
+.partner-compare .partner-bearing {
+  border-color: var(--brass-500);
+  border-left: 4px solid var(--brass-400);
+}
+
+.partner-compare ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.partner-compare li { margin-bottom: 0.45rem; }

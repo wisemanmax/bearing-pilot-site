@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="helper.css">
   <script type="module" src="motion.mjs"></script>
   <script type="module" src="helper.mjs"></script>
+  <script type="module" src="newsletter.mjs"></script>
   <script type="module" src="first-look.mjs"></script>
 </head>
 <body>
@@ -165,6 +166,24 @@
         <li><span class="section-num" aria-hidden="true">04&deg;</span>Could you pass a funder or lender review tomorrow without a week of scrambling?</li>
       </ul>
       <a class="cta cta-secondary" href="#first-look">Start with the free First Look</a>
+    </section>
+
+
+    <section id="newsletter" class="newsletter chart-card motion-lift reveal" aria-labelledby="newsletter-heading" hidden>
+      <h2 id="newsletter-heading">The Owner's Shortlist</h2>
+      <p>One short read at a time on seeing your money clearly &mdash; the same
+        plain reasoning as these pages, sent occasionally. No selling, no noise,
+        unsubscribe anytime.</p>
+      <form class="newsletter-form">
+        <label class="visually-hidden" for="newsletter-email">Email address</label>
+        <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@organization.org" required>
+        <p class="newsletter-honeypot" aria-hidden="true">
+          <label for="newsletter-company">Company (leave this blank)</label>
+          <input id="newsletter-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </p>
+        <button class="cta" type="submit">Keep me posted</button>
+      </form>
+      <p class="newsletter-status" role="status" aria-live="polite" hidden></p>
     </section>
 
     <section class="first-look reveal" id="first-look" aria-labelledby="first-look-heading">

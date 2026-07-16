@@ -44,12 +44,13 @@ export function validateBookingRequest({ name, email, timezone, windows }) {
 // phone) and the free-text prompt into one founder-readable note, capped to the
 // column's 2000-char limit. Order is deliberate: the qualitative context first,
 // then the visitor's own words. Returns null when nothing was supplied.
-export function composeBookingNote({ orgType, focus, format, phone, message } = {}) {
+export function composeBookingNote({ orgType, focus, format, phone, message, termsProposal } = {}) {
   const meta = [];
   if (orgType && orgType.trim()) meta.push(`Organization type: ${orgType.trim()}`);
   if (focus && focus.trim()) meta.push(`Focus: ${focus.trim()}`);
   if (format && format.trim()) meta.push(`Preferred format: ${format.trim()}`);
   if (phone && phone.trim()) meta.push(`Phone: ${phone.trim()}`);
+  if (termsProposal && termsProposal.trim()) meta.push(`Proposed terms: ${termsProposal.trim()}`);
   const words = (message || "").trim();
   const parts = [];
   if (meta.length) parts.push(meta.join("\n"));
@@ -158,6 +159,7 @@ if (typeof document !== "undefined") {
             format: data.get("meeting_format") || "",
             phone: data.get("phone") || "",
             message: data.get("note") || "",
+            termsProposal: data.get("terms_proposal") || "",
           }),
           timezone,
           windows,

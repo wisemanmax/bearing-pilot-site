@@ -268,3 +268,164 @@
     print-color-adjust: exact;
   }
 }
+
+/* --- One-question-at-a-time stepper (hc-stepper.mjs) -------------------------
+   Applied only when the module adds .hc-stepping — with JS off the full-length
+   form renders untouched. Hidden questions stay in the DOM (autosave, restore,
+   and scoring see every input); only visibility changes. */
+.hc-stepping .hc-q { display: none; }
+.hc-stepping .hc-q.hc-q-current { display: block; }
+
+/* Dimension chrome (headings, numerals) collapses in stepper mode — the step
+   header carries that context instead. Sections stay for structure. */
+.hc-stepping .hc-dimension {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  opacity: 1 !important;
+  translate: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.hc-stepping .hc-dimension h2,
+.hc-stepping .hc-dimension .section-num { display: none; }
+
+.hc-stepping .hc-q.hc-q-current {
+  max-width: 44rem;
+  margin: 0 auto var(--space-5, 1.5rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--sand-500);
+  border-radius: var(--radius-md, 6px);
+  background: var(--sand-50);
+  box-shadow: var(--shadow-soft);
+}
+
+.hc-stepping .hc-q.hc-q-current legend:focus { outline: none; }
+
+/* Step header */
+.hc-step-head {
+  max-width: 44rem;
+  margin: 0 auto var(--space-5, 1.5rem);
+}
+
+.hc-step-progress {
+  margin: 0 0 0.4rem;
+  color: var(--brass-700);
+  font-size: var(--type-sm);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hc-step-track {
+  height: 3px;
+  margin-bottom: 0.75rem;
+  border-radius: 2px;
+  background: var(--sand-300);
+  overflow: hidden;
+}
+
+.hc-step-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--brass-400);
+  transition: width 300ms var(--motion-ease, ease);
+}
+
+.hc-step-dim {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--type-h3);
+  color: var(--ink-teal-900);
+}
+
+/* The consideration bubble: hover, focus, or tap the ? */
+.hc-info-wrap { position: relative; display: inline-flex; }
+
+.hc-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--brass-500);
+  border-radius: 50%;
+  background: var(--sand-50);
+  color: var(--brass-700);
+  font: 700 0.85rem var(--sans);
+  cursor: help;
+}
+
+.hc-info:focus-visible { outline: 3px solid var(--brass-500); outline-offset: 2px; }
+
+.hc-info-bubble {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  z-index: 5;
+  width: min(21rem, 70vw);
+  transform: translateX(-50%);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--sand-500);
+  border-left: 3px solid var(--brass-400);
+  border-radius: 8px;
+  background: var(--sand-50);
+  box-shadow: var(--shadow-long);
+  color: var(--ink-teal-900);
+  font-family: var(--sans);
+  font-size: var(--type-sm);
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.hc-info-wrap:hover .hc-info-bubble,
+.hc-info-wrap:focus-within .hc-info-bubble,
+.hc-info-open .hc-info-bubble {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Step navigation */
+.hc-step-nav {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 44rem;
+  margin: 0 auto var(--space-4, 1rem);
+}
+
+/* Until the last question is seen, the submit actions step aside (still
+   reachable — skipping through is quick — but the path reads one at a time). */
+.hc-stepping .health-actions {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.hc-stepping:not(.hc-step-finished) #health-submit { display: none; }
+.hc-stepping.hc-step-finished .hc-step-nav .hc-step-skip { display: none; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-step-fill { transition: none; }
+  .hc-info-bubble { transition: none; }
+}

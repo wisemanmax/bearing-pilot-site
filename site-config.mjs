@@ -18,3 +18,9 @@ export const supabaseUrl = "https://rxkawusddqtfxmkwgpsj.supabase.co";
 export const supabaseKey = "sb_publishable_ap8ppxtgu6C3xtU7NCIzcg_7440J7av";
 
 export const contactEndpoint = "";
+
+// Newsletter signups ("The Owner's Shortlist"). Leave false until migration
+// 0010_bearing_newsletter_signups.sql has been applied to the Supabase
+// project — the signup card stays hidden everywhere while this is false, so
+// no visitor ever meets a form that cannot work.
+export const newsletterOpen = false;
