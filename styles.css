@@ -1852,3 +1852,43 @@ input[type="radio"]:focus-visible,
 }
 
 .partner-compare li { margin-bottom: 0.45rem; }
+
+/* --- Founder portrait (About: Who runs it) ----------------------------------- */
+.founder-portrait {
+  float: right;
+  width: clamp(9rem, 16vw, 11.5rem);
+  margin: 0.25rem 0 1rem 1.5rem;
+  text-align: center;
+}
+
+.founder-portrait img {
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--brass-400);
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+}
+
+.founder-portrait figcaption {
+  margin-top: 0.6rem;
+  color: var(--ink-teal-900);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.founder-portrait figcaption span {
+  color: var(--brass-700);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 40rem) {
+  .founder-portrait {
+    float: none;
+    margin: 0 auto 1.25rem;
+  }
+}
