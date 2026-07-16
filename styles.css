@@ -1892,3 +1892,46 @@ input[type="radio"]:focus-visible,
     margin: 0 auto 1.25rem;
   }
 }
+
+/* --- The Owner's Shortlist archive (resources) ------------------------------- */
+.shortlist-issues {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shortlist-issues li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--sand-300);
+}
+
+.shortlist-issue-num {
+  flex: none;
+  color: var(--brass-600);
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.shortlist-issue-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--type-h3);
+  color: var(--ink-teal-900);
+  line-height: 1.2;
+}
+
+.shortlist-issue-meta {
+  margin: 0.3rem 0 0;
+  color: var(--sand-900);
+  font-size: var(--type-sm);
+}
+
+.shortlist-issue-meta a {
+  color: var(--ink-teal-700);
+  text-decoration-color: var(--brass-400);
+}
