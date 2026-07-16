@@ -23,3 +23,10 @@ export const contactEndpoint = "";
 // 0010_bearing_newsletter_signups.sql is applied (2026-07-16), so the signup
 // card is live. Set false to hide it everywhere again.
 export const newsletterOpen = true;
+
+// Stripe Payment Link for the First Bearing ($1,500). Leave blank until the
+// Stripe account exists; then create a Payment Link for the $1,500 product
+// with "Allow promotion codes" enabled (Founding Pilot Partners enter their
+// 100%-off code at checkout) and paste the https://buy.stripe.com/… URL here.
+// While blank, no payment link appears anywhere on the site.
+export const paymentUrl = "";

@@ -1,4 +1,4 @@
-import { bookingUrl, supabaseKey, supabaseUrl } from "./site-config.mjs";
+import { bookingUrl, paymentUrl, supabaseKey, supabaseUrl } from "./site-config.mjs";
 import { safeBookingUrl } from "./booking-url.mjs";
 import { mountCalendar } from "./booking-calendar.mjs";
 
@@ -185,6 +185,23 @@ if (typeof document !== "undefined") {
         if (ok) {
           form.hidden = true;
           success.hidden = false;
+          // When a Stripe Payment Link is configured (https only, same
+          // validation as the booking URL), offer settlement right away.
+          // Founding Pilot Partners apply their code at checkout, so the
+          // engagement's full value stays visible.
+          const payLink = safeBookingUrl(paymentUrl);
+          if (payLink) {
+            const pay = document.createElement("span");
+            pay.className = "booking-pay";
+            pay.append(" If you like, you can settle the $1,500 engagement now — ");
+            const anchor = document.createElement("a");
+            anchor.href = payLink;
+            anchor.target = "_blank";
+            anchor.rel = "noopener noreferrer";
+            anchor.textContent = "pay securely via Stripe";
+            pay.append(anchor, ". Founding Pilot Partners: your code applies at checkout.");
+            success.append(pay);
+          }
           success.focus?.();
         } else {
           submitting = false;
