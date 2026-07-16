@@ -34,7 +34,7 @@
 
 #booking-form > fieldset > legend {
   margin-bottom: var(--space-3, 0.85rem);
-  color: var(--ink-teal-900, #0a2424);
+  color: var(--ink-teal-900, #081a40);
   font-family: var(--serif);
   font-size: var(--type-h3, 1.25rem);
   font-weight: 500;
@@ -68,12 +68,12 @@
 
 .booking-choice label:hover,
 .booking-choice label:focus-within {
-  border-color: var(--brass-400, #b08d57);
+  border-color: var(--brass-400, #cfa43a);
   background: var(--sand-100, #f5eee3);
 }
 
 .booking-choice label:has(input:checked) {
-  border-color: var(--brass-500, #987746);
+  border-color: var(--brass-500, #b8922c);
   background: var(--sand-100, #f5eee3);
 }
 
@@ -115,7 +115,7 @@
   border: 1px solid var(--sand-500, #c7b9a3);
   border-radius: 6px;
   background: var(--paper, #fbf7ef);
-  color: var(--ink-teal-800, #0e2f2f);
+  color: var(--ink-teal-800, #0c2352);
   font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
@@ -123,7 +123,7 @@
 }
 
 .cal-nav:hover:not(:disabled) {
-  border-color: var(--brass-400, #b08d57);
+  border-color: var(--brass-400, #cfa43a);
   background: var(--sand-100, #f5eee3);
 }
 
@@ -147,7 +147,7 @@
 
 .cal-dow-cell {
   padding: 0.35rem 0;
-  color: var(--brass-600, #8a6538);
+  color: var(--brass-600, #a37f24);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -169,7 +169,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   background: var(--paper, #fbf7ef);
-  color: var(--ink-teal-900, #0a2424);
+  color: var(--ink-teal-900, #081a40);
   font: inherit;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
@@ -177,16 +177,16 @@
 }
 
 .cal-day:hover:not(:disabled) {
-  border-color: var(--brass-400, #b08d57);
+  border-color: var(--brass-400, #cfa43a);
   background: var(--sand-100, #f5eee3);
 }
 
 .cal-day:active:not(:disabled) { scale: 0.92; }
 
 .cal-day.is-selected {
-  border-color: var(--brass-600, #8a6538);
-  background: var(--brass-400, #b08d57);
-  color: var(--ink-teal-900, #0a2424);
+  border-color: var(--brass-600, #a37f24);
+  background: var(--brass-400, #cfa43a);
+  color: var(--ink-teal-900, #081a40);
   font-weight: 650;
 }
 
@@ -197,7 +197,7 @@
 }
 
 .cal-day:focus-visible {
-  outline: 3px solid var(--brass-600, #8a6538);
+  outline: 3px solid var(--brass-600, #a37f24);
   outline-offset: 2px;
 }
 
@@ -217,7 +217,7 @@
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.6rem 0.5rem 0.85rem;
   border: 1px solid var(--sand-500, #c7b9a3);
-  border-left: 4px solid var(--brass-400, #b08d57);
+  border-left: 4px solid var(--brass-400, #cfa43a);
   border-radius: 6px;
   background: var(--sand-50, #fbf7ef);
 }
@@ -245,7 +245,7 @@
   border: 1px solid var(--sand-500, #c7b9a3);
   border-radius: 6px;
   background: var(--paper, #fbf7ef);
-  color: var(--ink-teal-800, #0e2f2f);
+  color: var(--ink-teal-800, #0c2352);
   font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
@@ -253,7 +253,7 @@
 }
 
 .cal-pick-remove:hover {
-  border-color: var(--brass-500, #987746);
+  border-color: var(--brass-500, #b8922c);
   background: var(--sand-100, #f5eee3);
 }
 
@@ -261,7 +261,7 @@
 
 .booking-picks-count {
   margin: 0.25rem 0 0;
-  color: var(--brass-700, #76542e);
+  color: var(--brass-700, #8a6a1f);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -299,7 +299,7 @@
 
 #booking-status[data-tone="error"],
 #booking-status[data-tone="warn"] {
-  border-left-color: var(--brass-500, #987746);
+  border-left-color: var(--brass-500, #b8922c);
 }
 
 #booking-success,

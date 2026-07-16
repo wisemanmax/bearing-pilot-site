@@ -207,8 +207,8 @@ html.js .intro-entrance > .band-depart > p { animation-delay: 180ms; }
 .cta-glow:hover,
 .cta-glow:focus-visible {
   box-shadow:
-    0 0 0 3px rgba(14, 79, 79, 0.13),
-    0 9px 24px rgba(14, 79, 79, 0.22);
+    0 0 0 3px rgba(27, 58, 125, 0.13),
+    0 9px 24px rgba(27, 58, 125, 0.22);
 }
 
 html.js .hero-entrance .hero-cta.cta-glow {
@@ -221,16 +221,16 @@ html.js .hero-entrance .hero-cta.cta-glow {
 }
 
 @keyframes cta-glow-once {
-  0%, 100% { box-shadow: 0 0 0 rgba(14, 79, 79, 0); }
+  0%, 100% { box-shadow: 0 0 0 rgba(27, 58, 125, 0); }
   48% {
     box-shadow:
-      0 0 0 5px rgba(14, 79, 79, 0.13),
-      0 10px 28px rgba(14, 79, 79, 0.25);
+      0 0 0 5px rgba(27, 58, 125, 0.13),
+      0 10px 28px rgba(27, 58, 125, 0.25);
   }
 }
 
 .motion-lift {
-  box-shadow: 0 4px 16px -14px rgba(10, 58, 58, 0.32);
+  box-shadow: 0 4px 16px -14px rgba(12, 35, 82, 0.32);
   transition:
     transform 200ms var(--motion-ease),
     box-shadow 200ms var(--motion-ease);
@@ -245,7 +245,7 @@ html.js .hero-entrance .hero-cta.cta-glow {
 .motion-lift:hover,
 .motion-lift:focus-within {
   transform: translateY(-3px);
-  box-shadow: 0 14px 30px -18px rgba(10, 58, 58, 0.5);
+  box-shadow: 0 14px 30px -18px rgba(12, 35, 82, 0.5);
 }
 
 html.js .reveal.in-view .reveal-stagger > .motion-lift:hover,
@@ -333,7 +333,7 @@ html.js .reveal.in-view .reveal-stagger > .motion-lift:focus-within {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: var(--brass, #b08d57);
+  background: var(--brass, #cfa43a);
   pointer-events: none;
 }
 
@@ -420,7 +420,7 @@ html.js #first-look-result.result-in {
   display: grid;
   place-items: center;
   overflow: hidden;
-  color: var(--brass-300, #c8aa76);
+  color: var(--brass-300, #e3bd5f);
   opacity: var(--compass-max-opacity);
   pointer-events: none;
 }
@@ -449,7 +449,7 @@ html.js #first-look-result.result-in {
 .compass-field__ring > circle { stroke-width: 1.1; }
 .compass-field__ticks path { stroke-width: 1.1; stroke-linecap: round; }
 .compass-field__needle { fill: currentColor; }
-.compass-field__hub { fill: var(--ink-teal-900, #0a2424); stroke: none; }
+.compass-field__hub { fill: var(--ink-teal-900, #081a40); stroke: none; }
 
 /* Static default heading — the frame shown with JS off, before the timeline
    resolves, and (below) under reduced motion. rAF fallback + native timeline
@@ -616,7 +616,7 @@ html.js #first-look-result.result-in {
       position: absolute;
       z-index: 0;
       inset: 0;
-      background: radial-gradient(52rem circle at 50% 30%, rgba(200, 170, 118, 0.16), transparent 62%);
+      background: radial-gradient(52rem circle at 50% 30%, rgba(227, 189, 95, 0.16), transparent 62%);
       content: "";
       pointer-events: none;
       animation: glow-cool 1ms linear both;

@@ -196,7 +196,7 @@
 .portal-upload {
   margin-top: var(--space-6);
   padding-top: var(--space-5);
-  border-top: 1px solid rgba(10, 36, 36, 0.18);
+  border-top: 1px solid rgba(8, 26, 64, 0.18);
 }
 
 .portal-upload input[type="file"] {
