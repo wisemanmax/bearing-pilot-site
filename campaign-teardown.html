@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwODFhNDAiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTNiZDVmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzIgNXY1IE0zMiA1NHY1IE01IDMyaDUgTTU0IDMyaDUgTTE1IDE1bDMgMyBNNDYgNDZsMyAzIE00OSAxNWwtMyAzIE0xOCA0NmwtMyAzIiBmaWxsPSJub25lIiBzdHJva2U9IiNlM2JkNWYiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMzIgOUwzNSAyOUw1MCAzMkwzNSAzNUwzMiA1NUwyOSAzNUwxNCAzMkwyOSAyOVoiIGZpbGw9IiNlM2JkNWYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyLjYiIGZpbGw9IiMwODFhNDAiLz48L3N2Zz4=">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="description" content="A public charity golf raffle, taken apart: the nine operating-system functions hiding behind what looks like a single flyer.">
+  <meta name="theme-color" content="#081a40">
+  <meta property="og:title" content="Campaign teardown — BEARING°">
+  <meta property="og:description" content="A public charity golf raffle, taken apart: the nine operating-system functions hiding behind what looks like a single flyer.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BEARING logo: a gold compass rose and wordmark on deep navy">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="og-image.png">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Campaign teardown — BEARING°</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="helper.css">
+  <script type="module" src="motion.mjs"></script>
+  <script type="module" src="helper.mjs"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="masthead">
+    <p class="wordmark">BEARING&deg;</p>
+    <p class="descriptor">Operational clarity and financial systems for small business and non-profits</p>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li> <li><a href="services.html">Services</a></li> <li><a href="operating-system.html">Operating system</a></li> <li><a href="process.html">Process</a></li> <li><a href="about.html">About</a></li>
+        <li><a href="success-stories.html">Success stories</a></li> <li><a href="resources.html">Resources</a></li> <li><a href="health-check.html">Health check</a></li> <li><a href="contact.html">Contact</a></li> <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro depth-band intro-entrance grain">
+      <h1>Campaign teardown</h1>
+      <p>A charity golf raffle, taken apart. It arrives looking like one
+        graphic. It is nine operating functions running at once &mdash; which is
+        exactly the gap between what a small business usually buys and what it
+        actually needs.</p>
+    </section>
+
+    <section class="page-intro reveal" aria-labelledby="disclosure-heading">
+      <h2 id="disclosure-heading" class="visually-hidden">Disclosure</h2>
+      <aside class="pilot-notice" role="note" aria-label="Disclosure">
+        <p><strong>Not our work, and not our client.</strong> The Charity Golf
+          Raffle described here is a public campaign run by
+          <strong>XG Groom Room</strong>, an Indianapolis barbershop, together
+          with the <strong>PILO Future's Foundation</strong>
+          (<span class="mix">pilofuturesfoundation.org</span>). Bearing has no
+          involvement in the campaign, no relationship with either organisation,
+          and no permission is implied by writing about it. Every detail below
+          is read off the campaign's own publicly circulated flyer and is
+          reproduced here only to illustrate a standard of work. Nothing on this
+          page is a Bearing case study, and nothing on it should be read as an
+          endorsement in either direction. If you want to support the campaign,
+          go to the foundation directly rather than through us.</p>
+      </aside>
+    </section>
+
+    <section class="reveal" aria-labelledby="flyer-heading">
+      <h2 id="flyer-heading">What the flyer says</h2>
+      <p>The facts, as printed:</p>
+      <dl class="fact-list">
+        <div>
+          <dt>The campaign</dt>
+          <dd>Charity Golf Raffle &mdash; &ldquo;Win big. Support more.&rdquo;
+            Presented by XG Groom Room (est. 2019) with the PILO Future's
+            Foundation.</dd>
+        </div>
+        <div>
+          <dt>When and where</dt>
+          <dd>Sunday, 20 September 2026, 10:00&nbsp;a.m. shotgun start, at
+            Pleasant Run Golf Course, Indianapolis, Indiana.</dd>
+        </div>
+        <div>
+          <dt>The ask</dt>
+          <dd>Raffle tickets starting at $30 each. Every ticket is one entry
+            &mdash; &ldquo;more tickets, better odds, bigger impact.&rdquo;</dd>
+        </div>
+        <div>
+          <dt>The prizes</dt>
+          <dd>Four: a premium pellet smoker, Oakley Meta smart glasses, an
+            85-inch 4K UHD television, and free haircuts for a year at a stated
+            value of $1,000-plus.</dd>
+        </div>
+        <div>
+          <dt>The mechanic</dt>
+          <dd>A bonus entry attached to purchases made in the shop &mdash; the
+            raffle reaches back into the barbershop's own counter.</dd>
+        </div>
+        <div>
+          <dt>The cause</dt>
+          <dd>Support for at-risk youth, new barbers, and returning citizens
+            &mdash; &ldquo;training, tools, and real opportunities.&rdquo;</dd>
+        </div>
+        <div>
+          <dt>The other revenue line</dt>
+          <dd>&ldquo;Sponsorships available.&rdquo; Three words on a flyer;
+            a priced package behind them, or it earns nothing.</dd>
+        </div>
+      </dl>
+      <p class="service-note">Read as a document, that is a complete offer:
+        who, what, when, how much, why, and two independent ways to pay. Very
+        few small-business promotions clear that bar.</p>
+    </section>
+
+    <section class="reveal" aria-labelledby="behind-heading">
+      <h2 id="behind-heading">Nine things that existed before that flyer could print</h2>
+      <ul class="principles-list reveal-stagger">
+        <li><span class="section-num principle-degree" aria-hidden="true">01&deg;</span><strong>A brand system.</strong> Two crests locked up
+          without either one losing to the other, a single palette carried
+          across every element, and a hierarchy that still reads at thumbnail
+          size on a phone. Two organisations sharing one campaign identity is a
+          decision somebody had to make and then hold.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">02&deg;</span><strong>A prize ladder.</strong> Four prizes at descending
+          price points, aimed at four different buyers &mdash; and the fourth
+          one, a year of haircuts, costs the business chair time rather than
+          cash. Prize sourcing is procurement: donated where possible, bought
+          where necessary, and every one of them a conversation before it was a
+          photograph.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">03&deg;</span><strong>Sponsorship inventory.</strong> &ldquo;Sponsorships
+          available&rdquo; is a line on a flyer and a priced deck behind it:
+          tiers, what each tier gets, a target list of local businesses, an ask
+          sequence, and the follow-through that turns a verbal yes into a paid
+          invoice and a delivered benefit before the event.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">04&deg;</span><strong>Pricing and entry mechanics.</strong> A $30 floor
+          with &ldquo;starting at&rdquo; doing the work above it &mdash; the
+          ladder is where the real money is. Somebody modelled how many tickets
+          at which tiers cover four prizes, a golf course, and food, and still
+          leave a number worth handing to the programme.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">05&deg;</span><strong>A distribution plan.</strong> The asset is sized
+          for a phone feed and carries a link sticker straight to purchase. That
+          implies a posting calendar, a countdown, chair-side conversion in the
+          shop itself, and partners re-sharing on their own accounts. A flyer
+          nobody scheduled is a flyer nobody saw.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">06&deg;</span><strong>Event operations.</strong> A shotgun start means the
+          course is contracted, the field is capped, tee assignments exist, and
+          food, volunteers, signage, and a rain plan are somebody's named
+          responsibility on the day. The golf is the easy part.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">07&deg;</span><strong>Fundraising and compliance.</strong> A paid raffle run
+          for charitable purposes is regulated activity in Indiana, as in most
+          states &mdash; licensing, ticket accounting, drawing procedure, and
+          records of what was raised and where it went. Somebody had to answer
+          those questions before the first ticket sold, not after.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">08&deg;</span><strong>A community case, written three ways.</strong> The
+          benefit statements are aimed at three different donors: the one who
+          gives because of the youth, the one who comes for a day of golf and
+          food, and the one who cares that the training leads to real work.
+          Same event, three reasons to buy.</li>
+        <li><span class="section-num principle-degree" aria-hidden="true">09&deg;</span><strong>Measurement.</strong> Tickets sold by channel.
+          Sponsorship revenue against sponsorship cost. New clients in the shop
+          attributable to the campaign. Dollars that actually reached the
+          programme. Without those four numbers, next year's campaign is a guess
+          dressed up as a tradition.</li>
+      </ul>
+    </section>
+
+    <section class="service chart-card motion-lift reveal" aria-labelledby="mechanic-heading">
+      <h2 id="mechanic-heading">The smartest line on the flyer</h2>
+      <p>It is the bonus entry tied to an in-shop purchase.</p>
+      <p>Every other element raises money for the foundation. That one raises
+        the average ticket at the barbershop counter on the same day, and it
+        does it without discounting anything. A client who was going to buy a
+        beard oil now has a reason to buy it this week, at full price, and feels
+        good about it. The fundraiser subsidises the business that is hosting
+        the fundraiser.</p>
+      <p>That is not a design decision. It is an operations decision, made by
+        someone thinking about two P&amp;Ls at once &mdash; and it is exactly
+        the kind of thing that never occurs to anyone when the brief was
+        &ldquo;can you make us a flyer.&rdquo;</p>
+    </section>
+
+    <section class="reveal" aria-labelledby="gap-heading">
+      <h2 id="gap-heading">What most businesses ship instead</h2>
+      <div class="partner-compare">
+        <article>
+          <h3>The usual outcome</h3>
+          <ul>
+            <li>One graphic, posted once, on one platform</li>
+            <li>Prizes bought at retail because nobody asked for donations</li>
+            <li>&ldquo;Sponsorships available&rdquo; with nothing priced behind it</li>
+            <li>A price picked by feel, with no model underneath</li>
+            <li>Compliance discovered late, or not at all</li>
+            <li>No idea afterwards what it earned or what it cost</li>
+            <li>Next year: start from a blank page again</li>
+          </ul>
+        </article>
+        <article class="partner-bearing">
+          <h3>The same effort, run as a system</h3>
+          <ul>
+            <li>A campaign calendar with the asset scheduled across every channel</li>
+            <li>A prize ladder sourced deliberately, in-kind where it can be</li>
+            <li>Priced sponsorship tiers and a worked target list</li>
+            <li>A ticket model that shows the break-even before launch</li>
+            <li>Licensing and ticket accounting handled before the first sale</li>
+            <li>Four numbers on one page when it is over</li>
+            <li>Next year: the same machine, with last year's numbers in it</li>
+          </ul>
+        </article>
+      </div>
+      <p class="service-note">The gap between those two columns is not talent,
+        budget, or effort. It is whether an operating system exists. That is the
+        whole argument.</p>
+    </section>
+
+    <section class="promise depth-band reveal grain" aria-labelledby="close-heading">
+      <div class="depth-band__inner">
+        <h2 id="close-heading">Read this way, the website was never the product</h2>
+        <blockquote>
+          You focus on your craft. We build the business around it.
+        </blockquote>
+        <p>The nine functions in this teardown are the same nine described on
+          the <a href="operating-system.html">operating system page</a>. They get
+          built in the order an honest reading says they should &mdash; which is
+          why everything still starts with the free
+          <a href="index.html#first-look">First Look</a>.</p>
+      </div>
+    </section>
+
+    <section class="service-terms chart-card motion-lift reveal" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Sources and standing</h2>
+      <ul>
+        <li>All campaign details above are taken from the campaign's own
+          publicly circulated flyer for the XG Groom Room and PILO Future's
+          Foundation Charity Golf Raffle.</li>
+        <li>The foundation publishes at pilofuturesfoundation.org; its site was
+          not reachable from the environment this page was written in, so
+          nothing here is sourced from it.</li>
+        <li>Everything under &ldquo;Nine things that existed before that flyer
+          could print&rdquo; is Bearing's own inference about what a campaign of
+          this shape requires. It is not a statement of how these organisations
+          in fact operate.</li>
+        <li>Bearing has no affiliation with, and receives nothing from, either
+          organisation.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer-band grain">
+    <svg class="footer-compass" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor"></circle>
+      <path d="M16 5v3 M16 24v3 M5 16h3 M24 16h3 M16 8l2 8-2 3-2-3 2-8z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p class="footer-wordmark">Bearing Co. &mdash; pilot site, 2026.</p>
+    <a class="footer-link" href="privacy.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Privacy</a> <a class="footer-link" href="portal.html" style="color: var(--sand-200); text-decoration-color: var(--brass-300);">Client portal</a>
+  </footer>
+
+</body>
+</html>
