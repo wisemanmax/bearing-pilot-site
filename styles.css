@@ -647,7 +647,9 @@ a {
   mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 32px), transparent);
 }
 
-@media (min-width: 1200px) {
+/* Ten nav links no longer fit below ~1500px, so keep the edge fade until they do
+   — otherwise the last link is clipped with nothing to say more exist. */
+@media (min-width: 1500px) {
   .site-nav {
     -webkit-mask-image: none;
     mask-image: none;
@@ -1934,4 +1936,55 @@ input[type="radio"]:focus-visible,
 .shortlist-issue-meta a {
   color: var(--ink-teal-700);
   text-decoration-color: var(--brass-400);
+}
+
+/* --- Fact list (campaign teardown: "What the flyer says") -------------------- */
+.fact-list {
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.fact-list > div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) 1fr;
+  gap: 0.35rem 1.75rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--sand-300);
+}
+
+.fact-list > div:last-child {
+  border-bottom: 1px solid var(--sand-300);
+}
+
+.fact-list dt {
+  margin: 0;
+  color: var(--brass-700);
+  font-family: var(--sans);
+  font-size: var(--type-xs);
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.fact-list dd {
+  margin: 0;
+  color: var(--ink-teal-800);
+}
+
+@media (max-width: 34rem) {
+  .fact-list > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+/* --- Operating-system promise line (home + services tie-ins) ----------------- */
+.os-promise {
+  margin: var(--space-6) 0 var(--space-5);
+  color: var(--brass-700);
+  font-family: var(--serif);
+  font-size: var(--type-lede);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }
