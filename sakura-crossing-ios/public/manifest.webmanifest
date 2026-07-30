@@ -1,0 +1,20 @@
+{
+  "name": "Sakura Crossing 桜踏切",
+  "short_name": "Sakura Crossing",
+  "description": "An explorable Japanese suburban railway crossing, rendered 3D-to-2D in a cel-shaded anime style. Walk the shopping street, ride the e-bike, and fill the stamp book.",
+  "id": "sakura-crossing",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#e6ecf7",
+  "theme_color": "#e6ecf7",
+  "categories": ["games", "entertainment"],
+  "lang": "ja",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" }
+  ]
+}

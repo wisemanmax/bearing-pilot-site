@@ -1,0 +1,16 @@
+{
+  "appId": "com.sakuracrossing.app",
+  "appName": "Sakura Crossing",
+  "webDir": "dist",
+  "loggingBehavior": "none",
+  "ios": {
+    "contentInset": "never",
+    "scrollEnabled": false,
+    "backgroundColor": "#e6ecf7",
+    "preferredContentMode": "mobile",
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "iosScheme": "capacitor"
+  }
+}
